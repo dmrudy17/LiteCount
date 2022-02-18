@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is a login page</h1>
+  <div class="login">
+    <LoginCard/>
   </div>
 </template>
+
+<script>
+import LoginCard from '@/components/LoginCard.vue'
+
+export default {
+  name: 'Log-in',
+  components: {
+    LoginCard
+  }
+}
+</script>
