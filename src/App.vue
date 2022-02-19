@@ -18,8 +18,8 @@ export default {
 </script>
 
 <style>
-  #app {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F7FBFE;
-  }
+#app {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F7FBFE;
+}
 </style>
