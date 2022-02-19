@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-container class="fill-height" fluid>
+    <v-container fluid>
       <v-row align="center" justify="center" dense>
         <v-col cols="12" sm="8" md="4">
           <v-card elevation="1">
-            <v-card-title class="indigo--text text-h4 justify-center">Log in to LiteCount</v-card-title>
+            <v-card-title class="indigo--text text-h5 justify-center">Log in to LiteCount</v-card-title>
             <v-form>
               <v-text-field
                 v-model="email"

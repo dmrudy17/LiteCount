@@ -1,6 +1,9 @@
 <template>
   <div class="login">
-    <LoginCard/>
+    <div class="welcome-text" :style="{ color: '#000E89' }">
+      <h1 class="mt-15 pb-15 text-center">Welcome Back!</h1>
+    </div>
+      <LoginCard/>
   </div>
 </template>
 
