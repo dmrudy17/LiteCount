@@ -3,7 +3,7 @@
     style="width: 100%"
     cycle
     class="rounded-pill"
-    :interval="2500"
+    :interval="3000"
     width="100vh"
     hide-delimiter-background
     show-arrows-on-hover
@@ -38,6 +38,9 @@
       return {
         items: [
           {
+            src: require('@/assets/mainImage.png'),
+          },
+          {
             src: require('@/assets/analytics1.png'),
           },
           {
@@ -46,6 +49,7 @@
           {
             src: require('@/assets/analytics3.jpg'),
           },
+          
         ],
       }
     },
