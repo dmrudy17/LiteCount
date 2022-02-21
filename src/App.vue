@@ -1,5 +1,6 @@
 <template>
-  <v-app style="background-color: #F7FBFE">
+  <v-app>
+    <NavBar />
     <v-main>
       <router-view/>
     </v-main>
@@ -7,10 +8,10 @@
 </template>
 
 <script>
-
+import NavBar from '@/components/NavBar.vue'
 export default {
   name: 'App',
-
+  components: { NavBar },
   data: () => ({
     //
   }),
@@ -23,4 +24,3 @@ export default {
   background-color: #F7FBFE;
 }
 </style>
-

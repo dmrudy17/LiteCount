@@ -10,13 +10,17 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "firebase": "^9.6.7",
+    "mdb-vue-ui-kit": "^1.9.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
+    "vue-scroll-fixed-navbar": "^0.2.2",
+    "vuejs-scroll-fixed-header": "^1.0.3",
     "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@fortawesome/fontawesome-free": "^6.0.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
