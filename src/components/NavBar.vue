@@ -6,7 +6,7 @@
         <span class="blue--text text--darken-4">Count</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="grey">
+      <v-btn color="grey">
         <span>Sign Out</span>
       </v-btn>
     </v-toolbar>
