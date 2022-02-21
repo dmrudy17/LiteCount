@@ -1,8 +1,7 @@
 <template>
   <nav>
-    <v-toolbar flat app>
+    <v-toolbar>
       <v-toolbar-title>
-        <font-awesome-icon icon="fa-solid fa-sailboat" />
         <span class="font-weight-bold blue--text text--darken-4">Lite</span>
         <span class="blue--text text--darken-4">Count</span>
       </v-toolbar-title>
