@@ -56,10 +56,3 @@
     }),
   }
 </script>
-
-<style lang="sass" scoped>
-.v-card.on-hover.theme--dark
-  background-color: rgba(#FFF, 0.8)
-  >.v-card__text
-    color: #000
-</style>
