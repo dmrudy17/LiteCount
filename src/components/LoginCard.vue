@@ -5,14 +5,18 @@
         <v-col cols="12" sm="8" md="4">
           <v-card elevation="1">
             <v-card-title class="indigo--text text-h5 justify-center">Log in to LiteCount</v-card-title>
-            <v-form>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
               <v-text-field
                 v-model="email"
                 :rules="[rules.required, rules.email]"
                 label="Email address"
                 color="#0077B6"
                 clearable
-                prepend-inner-icon="mdi-mail" 
+                prepend-inner-icon="mdi-mail"
               ></v-text-field>
               <v-text-field
                 v-model="password"
@@ -27,7 +31,17 @@
                 @click:append="show = !show"
                 class="pb-6"
               ></v-text-field>
-              <v-btn class="rounded-0" color="#000E89" type="submit" x-large block dark>Submit</v-btn>
+              <v-btn
+                :disabled="!valid"
+                class="white--text rounded-0"
+                color="#000E89"
+                type="submit"
+                x-large
+                block
+                @click="validate"
+              >
+                Submit
+              </v-btn>
             </v-form>
           </v-card>
         </v-col>
@@ -41,6 +55,7 @@
     name: 'LoginCard',
     data () {
       return {
+        valid: true,
         show: false,
         email: '',
         password: '',
@@ -55,5 +70,10 @@
         },
       }
     },
+    methods: {
+      validate () {
+        this.$refs.form.validate()
+      }
+    }
   }
 </script>
