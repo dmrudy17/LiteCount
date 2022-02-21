@@ -1,5 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is a login page</h1>
+  <div class="login">
+    <div class="welcome-text" :style="{ color: '#000E89' }">
+      <h1 class="mt-15 pb-15 text-center">Welcome Back!</h1>
+    </div>
+      <LoginCard/>
   </div>
 </template>
+
+<script>
+import LoginCard from '@/components/LoginCard.vue'
+
+export default {
+  name: 'Log-in',
+  components: {
+    LoginCard
+  }
+}
+</script>

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #F7FBFE">
     <v-main>
       <router-view/>
     </v-main>
@@ -17,9 +17,3 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: 'Poppins', sans-serif;
-  background-color: #F7FBFE;
-}
-</style>
