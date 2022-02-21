@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar>
+    <v-app-bar fixed>
       <v-toolbar-title>
         <span class="font-weight-bold blue--text text--darken-4">Lite</span>
         <span class="blue--text text--darken-4">Count</span>
@@ -9,7 +9,7 @@
       <v-btn color="grey">
         <span>Sign Out</span>
       </v-btn>
-    </v-toolbar>
+    </v-app-bar>
   </nav>
 </template>
 
