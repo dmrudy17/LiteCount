@@ -5,9 +5,9 @@
       elevate-on-scroll
       color=#F7FBFE
     >
-      <v-toolbar-title>
-        <span class="font-weight-bold blue--text text--darken-4">Lite</span>
-        <span class="blue--text text--darken-4">Count</span>
+      <v-toolbar-title style="cursor: pointer" @click="$router.push('/')">
+          <span class="font-weight-bold blue--text text--darken-4">Lite</span>
+          <span class="blue--text text--darken-4">Count</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="grey">
