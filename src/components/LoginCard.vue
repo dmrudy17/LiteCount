@@ -33,6 +33,7 @@
               ></v-text-field>
               <v-btn
                 :disabled="!valid"
+                :loading="loading"
                 class="white--text rounded-0"
                 color="#000E89"
                 type="submit"
@@ -55,6 +56,8 @@
     name: 'LoginCard',
     data () {
       return {
+        loader: null,
+        loading: false,
         valid: true,
         show: false,
         email: '',
@@ -72,8 +75,22 @@
     },
     methods: {
       validate () {
-        this.$refs.form.validate()
+        console.log()
+        if (this.$refs.form.validate() == true) {
+          this.loading = true
+          this.loader = this.loading
+        }
       }
-    }
+    },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+
+        setTimeout(() => (this[l] = false), 3000)
+
+        this.loader = null
+      },
+    },
   }
 </script>
