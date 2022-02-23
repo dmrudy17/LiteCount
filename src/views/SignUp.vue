@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <div class="signUp">
      <v-spacer class="spacer"></v-spacer>
-    <h1>This is an About page</h1>
+    <h1>This is an Sign up page</h1>
   </div>
 </template>
 

@@ -21,6 +21,7 @@
       <v-btn
         color="orange lighten-2"
         text
+        @click="showPage()"
       >
         {{action}}
       </v-btn>
@@ -54,5 +55,19 @@
     data: () => ({
       show: false,
     }),
+    methods:
+    {
+      showPage()
+      {
+        if(this.action === 'Sign Up')
+        {
+           this.$router.push('/signUp'); 
+        }
+        else if(this.action === 'Read More')
+        {
+          this.$router.push('/about'); 
+        }
+      }
+    }
   }
 </script>
