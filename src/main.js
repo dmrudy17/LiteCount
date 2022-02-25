@@ -1,8 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import * as firebase from "firebase/app";
 import vuetify from './plugins/vuetify'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDlW80QsSNWI0QeTP02F1oRuSkDBF6S_Z4",

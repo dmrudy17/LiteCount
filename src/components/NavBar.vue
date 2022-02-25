@@ -11,16 +11,59 @@
           <span class="blue--text text--darken-4">Count</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="grey">
-        <span>Sign Out</span>
-      </v-btn>
+      <div v-if="!signedIn">
+        <v-btn color="grey">
+          <span @click="logIn()">Sign In</span>
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn color="grey">
+          <span @click="logOut()">Log Out</span>
+        </v-btn>
+      </div>
     </v-app-bar>
   </nav>
 </template>
 
 
 <script>
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
 export default {
+  data: () => ({
+    signedIn: false
+  }),
+
+    beforeMount(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user)
+            {
+              this.signedIn = true
+            }
+            else if(!user)
+            {
+              this.signedIn = false
+            }
+        })
+  },
+
+  methods: {
+    logIn()
+    {
+      this.$router.push('/login'); 
+    },
+
+    logOut()
+    {
+      firebase
+        .auth()
+        .signOut()
+        .then(()=> console.log("Signed out"))
+        .catch(err => alert(err.message));
+    }
+  }
 
 
 }
