@@ -4,7 +4,7 @@
       <v-row align="center" justify="center" dense>
         <v-col cols="12" sm="8" md="4">
           <v-card elevation="1">
-            <v-card-title class="indigo--text text-h5 justify-center">Log in to LiteCount</v-card-title>
+            <v-card-title class="indigo--text text-h5 justify-center">Sign up for LiteCount</v-card-title>
             <v-form
               ref="form"
               v-model="valid"
@@ -76,16 +76,16 @@ import 'firebase/compat/firestore';
         },
       }
     },
+
     methods: {
       validate () {
         // if (this.$refs.form.validate() == true) {
         //   this.loading = true
         //   this.loader = this.loading
         // }
-
         firebase
             .auth()
-            .signInWithEmailAndPassword(this.email, this.password)
+            .createUserWithEmailAndPassword(this.email, this.password)
             .then(this.$router.push('/displayview'))
             .catch(err => alert(err.message))
       }
