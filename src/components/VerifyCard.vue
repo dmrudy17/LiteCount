@@ -37,7 +37,9 @@
 </template>
 
 <script>
-  import db from "../main.js"
+  import firebase from 'firebase/compat/app';
+  import 'firebase/compat/auth';
+  import 'firebase/compat/firestore';
 
   export default {
     name: 'VerifyCard',
@@ -53,7 +55,8 @@
     },
     methods: {
       validate () {
-        db
+        firebase
+          .firestore()
           .collection("Clients")
           .where("client_id", "==", this.client_id)
           .get()
