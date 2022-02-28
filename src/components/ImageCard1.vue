@@ -61,7 +61,7 @@
       {
         if(this.action === 'Sign Up')
         {
-           this.$router.push('/signUp'); 
+           this.$router.push('/verify-client'); 
         }
         else if(this.action === 'Read More')
         {

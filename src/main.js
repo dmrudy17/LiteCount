@@ -1,10 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import vuetify from './plugins/vuetify'
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import vuetify from "./plugins/vuetify";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDlW80QsSNWI0QeTP02F1oRuSkDBF6S_Z4",
@@ -24,5 +24,7 @@ Vue.config.productionTip = false;
 new Vue({
     router,
     vuetify,
-    render: (h) => h(App)
+    render: (h) => h(App),
 }).$mount("#app");
+
+export const db = firebase.firestore();

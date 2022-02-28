@@ -12,7 +12,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="!signedIn">
-        <v-btn color="grey">
+        <v-btn dark color="#000E89">
           <span @click="logIn()">Sign In</span>
         </v-btn>
       </div>
