@@ -57,6 +57,10 @@ import 'firebase/compat/firestore';
 
   export default {
     name: 'LoginCard',
+    mounted() {
+    let data = this.$route.params.data;
+    console.log("data is", data);
+    },
     data () {
       return {
         loader: null,

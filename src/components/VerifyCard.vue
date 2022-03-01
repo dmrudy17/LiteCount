@@ -68,6 +68,13 @@
             }
           })
           .catch(err => alert(err.message));
+    
+        let data = this.client_id;
+      this.$router.push({
+        name: "SignUp",
+        params: { data }
+      });
+        
       }
     },
   }
