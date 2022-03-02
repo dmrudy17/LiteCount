@@ -24,7 +24,7 @@
                 color="#000E89"
                 x-large
                 block
-                @click="validate"
+                @click="validate(), nextPage()"
               >
                 Verify
               </v-btn>
@@ -55,27 +55,63 @@
     },
     methods: {
       validate () {
-        firebase
+        let firestoreQuery = firebase
           .firestore()
           .collection("Clients")
           .where("client_id", "==", this.client_id)
-          .get()
-          .then(function(querySnapshot) {
-            if (querySnapshot.empty) {
-              console.log("invalid user");
-            } else {
-              console.log("valid user");
-            }
-          })
-          .catch(err => alert(err.message));
+
+          let flag = false;
+          return firestoreQuery.get().then(querySnapshot => {
+          if(querySnapshot.empty)
+          {
+            flag = false;
+          }
+          else
+          {
+              flag = true;
+          }
+            return { flag }
+          });
+          // .get()
+          // .then(function(querySnapshot) {
+          //   if (querySnapshot.empty) {
+          //     this.flag = false;
+          //   } else {
+          //     this.flag = true;
+          //   }
+          // })
+          // .catch(err => alert(err.message));
     
-        let data = this.client_id;
-      this.$router.push({
-        name: "SignUp",
-        params: { data }
-      });
+        // console.log(this.flag)
+        // if(this.flag)
+        // {
+        //   let data = this.client_id;
+        //   this.$router.push({
+        //     name: "SignUp",
+        //     params: { data }
+        //   });
+        // }
         
-      }
+      },
+
+      nextPage()
+      {
+        this.validate().then(result => {
+          const { flag } = result;
+          if(flag)
+          {
+            let data = this.client_id;
+            this.$router.push({
+            name: "SignUp",
+            params: { data }
+          });
+          }
+          else
+          {
+            console.log("Invalid User")
+          }
+        })
+      },
     },
   }
 </script>

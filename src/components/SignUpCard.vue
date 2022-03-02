@@ -11,6 +11,17 @@
               lazy-validation
             >
               <v-text-field
+                v-model="client_id"
+                label="Client ID"
+                color="#0077B6"
+                disabled
+              ></v-text-field>
+              <v-text-field
+                v-model="full_name"
+                label="Full Name"
+                color="#0077B6"
+              ></v-text-field>
+              <v-text-field
                 v-model="email"
                 :rules="[rules.required, rules.email]"
                 label="Email address"
@@ -57,9 +68,8 @@ import 'firebase/compat/firestore';
 
   export default {
     name: 'LoginCard',
-    mounted() {
-    let data = this.$route.params.data;
-    console.log("data is", data);
+    beforeMount(){
+
     },
     data () {
       return {
@@ -69,6 +79,8 @@ import 'firebase/compat/firestore';
         show: false,
         email: '',
         password: '',
+        full_name: '',
+        client_id: this.$route.params.data,
         rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
@@ -87,10 +99,16 @@ import 'firebase/compat/firestore';
         //   this.loading = true
         //   this.loader = this.loading
         // }
+        const dbStore = firebase.firestore();
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
-            .then(this.$router.push('/displayview'))
+            .then(cred => {
+              return dbStore.collection("Clients").doc("Litehouse").collection("Users").doc(cred.user.uid).set({
+                  email: cred.user.email,
+                  name: this.full_name,
+              })
+            })
             .catch(err => alert(err.message))
       }
     },
