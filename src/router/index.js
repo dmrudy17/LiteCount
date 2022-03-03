@@ -31,6 +31,9 @@ const routes = [
         path: "/signup",
         name: "SignUp",
         component: SignUp,
+        meta: {
+            auth: true
+        }
     },
     {
         path: "/displayview",
