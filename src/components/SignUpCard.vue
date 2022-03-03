@@ -81,6 +81,7 @@ import 'firebase/compat/firestore';
         password: '',
         full_name: '',
         client_id: this.$route.params.data,
+        documentName: this.$route.params.documentId,
         rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
@@ -104,7 +105,7 @@ import 'firebase/compat/firestore';
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
-              return dbStore.collection("Clients").doc("Litehouse").collection("Users").doc(cred.user.uid).set({
+              return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
                   email: cred.user.email,
                   name: this.full_name,
               })

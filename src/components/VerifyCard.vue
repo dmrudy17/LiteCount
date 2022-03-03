@@ -62,6 +62,10 @@
 
           let flag = false;
           return firestoreQuery.get().then(querySnapshot => {
+          let documentId
+          querySnapshot.forEach((doc) => {
+                  documentId = doc.id;
+              });        
           if(querySnapshot.empty)
           {
             flag = false;
@@ -70,7 +74,7 @@
           {
               flag = true;
           }
-            return { flag }
+            return { flag, documentId }
           });
           // .get()
           // .then(function(querySnapshot) {
@@ -97,13 +101,14 @@
       nextPage()
       {
         this.validate().then(result => {
-          const { flag } = result;
+          const { flag, documentId } = result;
+          console.log(documentId)
           if(flag)
           {
             let data = this.client_id;
             this.$router.push({
             name: "SignUp",
-            params: { data }
+            params: { data, documentId }
           });
           }
           else
