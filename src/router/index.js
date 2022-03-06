@@ -30,6 +30,9 @@ const routes = [
         path: "/displayview",
         name: "DisplayView",
         component: DisplayView,
+        meta: {
+            hideNavbar: true,
+        },
     },
     {
         path: "/verify-client",
