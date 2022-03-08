@@ -25,7 +25,7 @@ export default {
       const file = this.inputFile
       if(file) {
           var user = firebase.auth().currentUser;
-          const storage = firebase.storage().ref('users/' + user.uid + '/index.xlsx' + Date().getTime());
+          const storage = firebase.storage().ref('users/' + user.uid + '/index.xlsx');
           const storageRef = storage.put(file);
           console.log(storageRef);
           alert("File Uploaded!")
