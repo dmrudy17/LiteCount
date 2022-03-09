@@ -10,6 +10,20 @@
     {{dataObject["Item Name"]}}
     <br>
     {{dataObject.Quantity}}
+
+    <v-spacer class="spacer"></v-spacer>
+    <v-text-field
+      label="Increment Quantity"
+      v-model="updatedValue"
+      hide-details="auto"
+    ></v-text-field>
+
+    <v-btn
+      color="success"
+      @click="updateQuantity"
+    >
+      Submit
+    </v-btn>
 </div>
 </template>
 
@@ -24,7 +38,9 @@ export default {
           documents: [],
           selectedId: '',
           dataObject: '',
+          updatedValue: 0,
           collectionName: this.$route.params.documentId,
+          nameOfDocument: '',
           }
     },
     async mounted()
@@ -39,7 +55,7 @@ export default {
     {
        loadValues(e)
         {
-            console.log("client name", this.$route.params.documentId)
+            this.nameOfDocument = e;
             // firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").where()
             // .then((value) => 
             // console.log(value.data["Quantity"]));
@@ -60,6 +76,13 @@ export default {
                 //             console.log(firstName)
                 //         });
                 //     })
+        },
+        updateQuantity()
+        {
+            const db = firebase.firestore();
+            const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
+            const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
+            newRef.update({Quantity:increment})
         }
     }
 
