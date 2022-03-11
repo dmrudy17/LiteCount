@@ -23,12 +23,15 @@ export default {
   methods: {
     sendFile() {
       const file = this.inputFile
-      if(file) {
+      var allowedExtensions = /(\.xlsx)$/i
+      if(file && allowedExtensions.exec(file.name)) {
           var user = firebase.auth().currentUser;
           const storage = firebase.storage().ref('users/' + user.uid + '/index.xlsx');
           const storageRef = storage.put(file);
           console.log(storageRef);
           alert("File Uploaded!")
+      } else {
+        alert("Invalid file type!")
       }
     }
   }
