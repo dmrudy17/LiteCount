@@ -1,29 +1,39 @@
 <template>
 <div>
-    <v-autocomplete
+    <v-card
+    class="mx-auto"
+    max-width="600"
+    
+    >
+        <v-card-title primary-title class="justify-center">
+            <h1>Item Puller</h1>
+        </v-card-title>
+        <v-autocomplete
         v-model='selectedId'
         @change="loadValues"
         :items="this.documents"
         color="white"
         label="Item Number"
     ></v-autocomplete>
-    {{dataObject["Item Name"]}}
-    <br>
-    {{dataObject.Quantity}}
+      <h3>Item Name: {{dataObject["Item Name"]}}</h3>
+      <h3>Item Quantity: {{dataObject.Quantity}}</h3> 
 
-    <v-spacer class="spacer"></v-spacer>
-    <v-text-field
+      <v-spacer class="spacer"></v-spacer>
+
+      <v-text-field
       label="Increment Quantity"
       v-model="updatedValue"
       hide-details="auto"
     ></v-text-field>
 
-    <v-btn
-      color="success"
-      @click="updateQuantity"
-    >
-      Submit
-    </v-btn>
+    <v-layout justify-center>
+        <v-card-actions>
+            <v-btn  color="primary" @click="updateQuantity">
+            <span>Increment</span>
+            </v-btn>
+        </v-card-actions>
+    </v-layout>
+    </v-card>
 </div>
 </template>
 
@@ -56,9 +66,6 @@ export default {
        loadValues(e)
         {
             this.nameOfDocument = e;
-            // firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").where()
-            // .then((value) => 
-            // console.log(value.data["Quantity"]));
             const db = firebase.firestore()
             const articleRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(e)
                 
@@ -69,13 +76,6 @@ export default {
                     this.dataObject = article
                 }
             }) 
-                // .get()
-                //     .then(querySnapshot => {
-                //         querySnapshot.forEach((doc) => {
-                //             var firstName = doc.get("Item Name");
-                //             console.log(firstName)
-                //         });
-                //     })
         },
         updateQuantity()
         {
@@ -92,6 +92,6 @@ export default {
 
 <style scoped>
 .spacer{
-  height: 100px;
+  height: 50px;
 }
 </style>
