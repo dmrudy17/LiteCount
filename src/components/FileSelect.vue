@@ -1,39 +1,43 @@
 <template>
-  <v-file-input
-    v-model="inputFile"
-    accept=".xlsx"
-    label="File input"
-    outlined
-    dense
-    @change="sendFile()"
-  ></v-file-input>
+    <section>
+      <input type="file" @change="onChange" />
+      <xlsx-read :file="file">
+        <xlsx-json :sheet="selectedSheet">
+          <template #default="{collection}">
+            <div>
+              {{ collection }}
+            </div>
+          </template>
+        </xlsx-json>
+      </xlsx-read>
+    </section>
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
+//import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import { XlsxRead, XlsxJson } from "vue-xlsx"
 
 export default {
-  name: 'ImportFile',
-  data: () => ({
-    inputFile: [],
-  }),
+  components: {
+    XlsxRead,
+    XlsxJson
+  },
+  data() {
+    return {
+      file: null,
+      selectedSheet: 0,
+      collection: [{ a: 1, b: 2 }]
+    };
+  },
   methods: {
-    sendFile() {
-      const file = this.inputFile
-      var allowedExtensions = /(\.xlsx)$/i
-      if(file && allowedExtensions.exec(file.name)) {
-          var user = firebase.auth().currentUser;
-          const storage = firebase.storage().ref('users/' + user.uid + '/index.xlsx');
-          const storageRef = storage.put(file);
-          console.log(storageRef);
-          alert("File Uploaded!")
-      } else {
-        alert("Invalid file type!")
-      }
-    }
+    onChange(event) {
+      this.file = event.target.files ? event.target.files[0] : null;
+      console.log(...this.collection);
+    },
   }
 }
+
 </script>
