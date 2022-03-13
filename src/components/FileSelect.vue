@@ -13,12 +13,12 @@
     </section>
 </template>
 
-<script>
+<script lang="js">
 //import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
-import { XlsxRead, XlsxJson } from "vue-xlsx"
+import { XlsxRead, XlsxJson } from "../../node_modules/vue-xlsx"
 
 export default {
   components: {

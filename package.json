@@ -20,7 +20,8 @@
     "vue-scroll-fixed-navbar": "^0.2.2",
     "vue-xlsx": "^0.2.1",
     "vuejs-scroll-fixed-header": "^1.0.3",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "xlsx": "^0.18.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
