@@ -1,15 +1,18 @@
 <template>
 <div>
     <v-spacer class="spacer"></v-spacer>
+    <item-puller></item-puller>
     <SideBar />
     <FileSelect />
 </div>
 </template>
 
 <script>
+/* eslint-disable */
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
 import FileSelect from '../components/FileSelect';
 
@@ -18,6 +21,7 @@ export default {
     components: {
         SideBar,
         FileSelect,
+        ItemPuller,
     },
     beforeMount(){
         firebase.auth().onAuthStateChanged((user) => {
@@ -26,7 +30,7 @@ export default {
                 this.$router.push('/login');
             }
         })
-    }
+    },
 }
 </script>
 
