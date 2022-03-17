@@ -1,16 +1,19 @@
 <template>
+<div ref="mySlot">
     <section>
       <input type="file" @change="onChange" />
       <xlsx-read :file="file">
         <xlsx-json :sheet="selectedSheet">
-          <template #default="{collection}">
+          <template #default="{collection}" >
             <div>
               {{ collection }}
             </div>
           </template>
         </xlsx-json>
       </xlsx-read>
+       <v-btn @click="getData"></v-btn>
     </section>
+    </div>
 </template>
 
 <script lang="js">
@@ -29,14 +32,17 @@ export default {
     return {
       file: null,
       selectedSheet: 0,
-      collection: [{ a: 1, b: 2 }]
+      mainCollection: [],
     };
   },
   methods: {
     onChange(event) {
       this.file = event.target.files ? event.target.files[0] : null;
-      console.log(...this.collection);
     },
+    getData () {
+      this.mainCollection = this.$refs.mySlot.textContent
+      console.log(this.mainCollection);
+    }
   }
 }
 
