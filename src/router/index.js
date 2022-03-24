@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import SignUp from "../views/SignUp.vue";
 import DisplayView from "../views/DisplayView.vue";
 import VerifyClient from "../views/VerifyClient.vue";
+import AdminOrganization from "../views/AdminOrganization.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,14 @@ const routes = [
         path: "/displayview",
         name: "DisplayView",
         component: DisplayView,
+        meta: {
+            hideNavbar: true,
+        },
+    },
+    {
+        path: "/displayview/admin-organization",
+        name: "AdminOrganization",
+        component: AdminOrganization,
         meta: {
             hideNavbar: true,
         },
