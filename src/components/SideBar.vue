@@ -94,16 +94,24 @@ export default {
           if (!querySnapshot.empty) {
             const adminUser = querySnapshot.docs[0].data()
             if (adminUser.email == user.email) {
-              this.isAdminUser = true
+              this.isAdminUser = true;
             }
           } else {
-            console.log("No admin found")
+            console.log("No admin found");
           }
         })
       }
     })
   },
+  mounted:function() {
+    this.checkSelectedItem()
+  },
   methods: {
+    checkSelectedItem:function() {
+      if (this.$route.name == "AdminOrganization") {
+        this.selectedItem = 2;
+      }
+    },
     logOut() {
       firebase
         .auth()
@@ -115,7 +123,7 @@ export default {
         .catch(err => alert(err.message));
     },
     accessOrganization() {
-      this.$router.push("/displayview/admin-organization")
+      this.$router.push("/displayview/admin-organization");
     }
   }
 }
