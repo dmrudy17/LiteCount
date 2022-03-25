@@ -17,6 +17,9 @@
         </v-btn>
       </div>
       <div v-else>
+        <v-btn dark class="mr-5" color="#FF5E00">
+          <span @click="goToDashboard()">Inventory Dashboard</span>
+        </v-btn>
         <v-btn color="grey">
           <span @click="logOut()">Log Out</span>
         </v-btn>
@@ -53,6 +56,11 @@ export default {
     logIn()
     {
       this.$router.push('/login'); 
+    },
+
+    goToDashboard()
+    {
+      this.$router.push('/displayview');
     },
 
     logOut()
