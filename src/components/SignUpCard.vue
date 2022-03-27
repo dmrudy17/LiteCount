@@ -108,6 +108,7 @@ import 'firebase/compat/firestore';
               return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
                   email: cred.user.email,
                   name: this.full_name,
+                  organization: this.documentName,
               })
             })
             .catch(err => alert(err.message))
