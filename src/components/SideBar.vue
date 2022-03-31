@@ -36,6 +36,18 @@
                 <v-icon v-text="item.icon"></v-icon>
               </v-list-item-icon>
             </v-list-item>
+            <v-list-item
+              v-if="isAdminUser"
+              active-class="border"
+              :ripple="false"
+              class="m1-1 my-3 ml-1"
+            >
+              <b></b>
+              <b></b>
+              <v-list-item-icon active-class="border" @click="accessOrganization()">
+                <v-icon>mdi-account-group-outline</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
           </v-list-item-group>
         </v-list>
         <div class="signout-button">
@@ -53,22 +65,54 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+
 export default {
   name: 'SideBar',
   data () {
     return {
-      selectedItem:0,
+      isAdminUser: false,
+      selectedItem: 0,
       drawer: null,
       items: [
         { icon: 'mdi-home-city' },
-        { icon: 'mdi-account' },
-        { icon: 'mdi-account-group-outline' },
-      ],
+        { icon: 'mdi-account' }
+      ]
     }
   },
+  beforeMount(){
+    const dbStore = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        dbStore
+        .collection("Clients")
+        .doc("Litehouse")
+        .collection("Users")
+        .where('isAdmin', '==', true)
+        .get()
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            const adminUser = querySnapshot.docs[0].data()
+            if (adminUser.email == user.email) {
+              this.isAdminUser = true;
+            }
+          } else {
+            console.log("No admin found");
+          }
+        })
+      }
+    })
+  },
+  mounted:function() {
+    this.checkSelectedItem()
+  },
   methods: {
-    logOut()
-    {
+    checkSelectedItem:function() {
+      if (this.$route.name == "AdminOrganization") {
+        this.selectedItem = 2;
+      }
+    },
+    logOut() {
       firebase
         .auth()
         .signOut()
@@ -77,6 +121,9 @@ export default {
           this.$router.push("/");
         })
         .catch(err => alert(err.message));
+    },
+    accessOrganization() {
+      this.$router.push("/displayview/admin-organization");
     }
   }
 }
