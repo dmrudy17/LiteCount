@@ -15,7 +15,7 @@
         color="white"
         label="Item Number"
     ></v-autocomplete>
-      <h3>Item Name: {{dataObject["Item Name"]}}</h3>
+      <h3>Item Name: {{dataObject["ItemName"]}}</h3>
       <h3>Item Quantity: {{dataObject.Quantity}}</h3> 
 
       <v-spacer class="spacer"></v-spacer>
