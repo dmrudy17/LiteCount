@@ -42,6 +42,14 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-btn
+      class="ma-2"
+      color="success"
+      dark
+      @click="requestAddUser"
+    >
+      Add new user
+    </v-btn>
   </v-container>
 </template>
 
@@ -79,6 +87,9 @@ export default {
       } else {
         return "Employee";
       }
+    },
+    requestAddUser() {
+      this.$router.push('/signup')
     }
   }
 }
