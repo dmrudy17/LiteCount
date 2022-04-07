@@ -5,18 +5,21 @@
       <h1 class="ml-2">My Organization</h1>
     </div>
     <UserCard />
+    <AdminSignUpCard />
   </div>
 </template>
 
 <script>
 import SideBar from '../components/SideBar';
 import UserCard from '../components/UserCard';
+import AdminSignUpCard from '../components/AdminSignUpCard.vue'
 
 export default {
     name: 'AdminOrganization',
     components: {
         SideBar,
-        UserCard
+        UserCard,
+        AdminSignUpCard
     }
 }
 </script>
