@@ -4,6 +4,8 @@
     <item-puller></item-puller>
     <SideBar />
     <FileSelect />
+    <v-spacer class="spacer"></v-spacer>
+    <excel-download></excel-download>
 </div>
 </template>
 
@@ -15,6 +17,7 @@ import 'firebase/compat/firestore';
 import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
 import FileSelect from '../components/FileSelect';
+import ExcelDownload from '../components/ExcelDownload';
 
 export default {
     name: 'DisplayView',
@@ -22,6 +25,7 @@ export default {
         SideBar,
         FileSelect,
         ItemPuller,
+        ExcelDownload,
     },
     beforeMount(){
         firebase.auth().onAuthStateChanged((user) => {
