@@ -47,7 +47,7 @@ export default {
           return {
           documents: [],
           selectedId: '',
-          dataObject: '',
+          dataObject: 0,
           updatedValue: 0,
           collectionName: this.$route.params.documentId,
           nameOfDocument: '',
@@ -83,6 +83,10 @@ export default {
             const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
             const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
             newRef.update({Quantity:increment})
+
+            //Update on card
+            var number = parseInt(this.updatedValue)
+            this.dataObject.Quantity = this.dataObject.Quantity + number;
         }
     }
 
