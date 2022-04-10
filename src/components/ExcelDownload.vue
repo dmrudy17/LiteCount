@@ -3,7 +3,7 @@
     <v-btn @click="generateData">Click Me</v-btn>
     <json-excel :data="documents" 
     :fields="json_fields"
-    name="Items.xls"
+    :name="this.fileName"
     />
 </div>
 </template>
@@ -22,6 +22,7 @@ export default {
           return {
           documents: [],
           showDownload: false,
+          fileName: '',
           json_fields: {
           "Item Name" : "ItemName",
           "Quantity" : "Quantity",
@@ -39,6 +40,8 @@ export default {
             })
             console.log(this.documents)
             this.showDownload = true
+            this.fileName = new Date().toLocaleDateString("en-US");
+            console.log(this.fileName)
         }
     }
 
