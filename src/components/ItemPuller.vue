@@ -28,7 +28,7 @@
 
     <v-layout justify-center>
         <v-card-actions>
-            <v-btn  color="primary" @click="updateQuantity">
+            <v-btn  color="primary" @click="updateQuantity(); addMap();">
             <span>Increment</span>
             </v-btn>
         </v-card-actions>
@@ -51,8 +51,28 @@ export default {
           updatedValue: 0,
           collectionName: this.$route.params.documentId,
           nameOfDocument: '',
+          userId: '',
+          fullName: '',
           }
     },
+    beforeMount(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user)
+            {
+              this.userId = user.uid
+
+            var userName = firebase.firestore().collection('Clients').doc("Litehouse").collection("Users").doc(user.uid)
+            userName.get().then(articleDoc => {
+            if(articleDoc.exists)
+            {
+                const article = articleDoc.data()
+                this.fullName = article.name
+            }
+            })
+            }
+        })
+
+  },
     async mounted()
     {   
         const snapshot = await firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").get()
@@ -60,6 +80,7 @@ export default {
                 const pulledVal = doc.id;
                 this.documents.push(pulledVal);
             })
+        
     },
     methods:
     {
@@ -87,6 +108,23 @@ export default {
             //Update on card
             var number = parseInt(this.updatedValue)
             this.dataObject.Quantity = this.dataObject.Quantity + number;
+
+        },
+        async addMap()
+        {
+            const db = firebase.firestore();
+            console.log(this.fullName)
+            var itemRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.selectedId);
+            var time = new Date().toLocaleDateString("en-US");
+            var logObject = {
+                "User" : this.fullName,
+                "Quantity": this.dataObject.Quantity,
+                "Date": time, 
+            }
+            itemRef.update({
+                "logs": firebase.firestore.FieldValue.arrayUnion(logObject)
+            }
+            )
         }
     }
 
