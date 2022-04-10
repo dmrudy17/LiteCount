@@ -21,7 +21,7 @@
       <v-spacer class="spacer"></v-spacer>
 
       <v-text-field
-      label="Increment Quantity"
+      label="Adjust Quantity"
       v-model="updatedValue"
       hide-details="auto"
     ></v-text-field>
