@@ -101,7 +101,7 @@ export default {
                 }
             }) 
         },
-        incrementQuantity()
+        updateQuantity()
         {
             const db = firebase.firestore();
             const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
