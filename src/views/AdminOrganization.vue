@@ -29,4 +29,7 @@ export default {
 .spacer {
   height: 100px;
 }
+::v-deep .v-application--wrap {
+  min-height: fit-content;
+}
 </style>

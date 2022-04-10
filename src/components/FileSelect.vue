@@ -52,7 +52,7 @@ export default {
       {
         dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Item Number"]).set({
           ItemName: item["Item Name"],
-          Quantity: item["Quantity"],
+          Quantity: 0,
         })
       }
       

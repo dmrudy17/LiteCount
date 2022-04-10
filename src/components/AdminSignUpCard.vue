@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
-      <v-row align="center" justify="left" dense>
+      <v-row align="center" justify="center" dense>
         <v-col cols="12" sm="8" md="4">
           <v-card
             elevation="1"
