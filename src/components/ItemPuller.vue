@@ -28,8 +28,11 @@
 
     <v-layout justify-center>
         <v-card-actions>
-            <v-btn  color="primary" @click="updateQuantity">
+            <v-btn  class="mr-10" color="primary" @click="incrementQuantity">
             <span>Increment</span>
+            </v-btn>
+            <v-btn  color="secondary" @click="decrementQuantity">
+            <span>Decrement</span>
             </v-btn>
         </v-card-actions>
     </v-layout>
@@ -77,7 +80,7 @@ export default {
                 }
             }) 
         },
-        updateQuantity()
+        incrementQuantity()
         {
             const db = firebase.firestore();
             const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
@@ -87,6 +90,18 @@ export default {
             //Update on card
             var number = parseInt(this.updatedValue)
             this.dataObject.Quantity = this.dataObject.Quantity + number;
+        },
+        decrementQuantity()
+        {
+            console.log(this.updatedValue);
+            const db = firebase.firestore();
+            const decrement = firebase.firestore.FieldValue.increment(-1 * this.updatedValue);
+            const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
+            newRef.update({Quantity:decrement})
+
+            //Update on card
+            var number = parseInt(this.updatedValue)
+            this.dataObject.Quantity = this.dataObject.Quantity - number;
         }
     }
 
