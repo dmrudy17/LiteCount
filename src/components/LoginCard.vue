@@ -42,6 +42,14 @@
               >
                 Submit
               </v-btn>
+              <v-alert
+                outlined
+                type="success"
+                :value="alert"
+                text
+              >
+                Successfully logged in!
+              </v-alert>
             </v-form>
           </v-card>
         </v-col>
@@ -59,8 +67,7 @@ import 'firebase/compat/firestore';
     name: 'LoginCard',
     data () {
       return {
-        loader: null,
-        loading: false,
+        alert: false,
         valid: true,
         show: false,
         email: '',
@@ -86,9 +93,9 @@ import 'firebase/compat/firestore';
         firebase
             .auth()
             .signInWithEmailAndPassword(this.email, this.password)
-            .then(this.$router.push('/displayview'))
+            .then(this.alert = true)
             .catch(err => alert(err.message))
-      }
+      },
     },
     watch: {
       loader () {
