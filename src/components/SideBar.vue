@@ -24,16 +24,25 @@
             link
           >
             <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
               active-class="border"
               :ripple="false"
               class="ml-1 my-3"
             >
               <b></b>
               <b></b>
-              <v-list-item-icon active-class="border">
-                <v-icon v-text="item.icon"></v-icon>
+              <v-list-item-icon active-class="border" @click="accessDisplayView()">
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-list-item
+              active-class="border"
+              :ripple="false"
+              class="ml-1 my-3"
+            >
+              <b></b>
+              <b></b>
+              <v-list-item-icon active-class="border" @click="accessUserPage()">
+                <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
             </v-list-item>
             <v-list-item
@@ -73,10 +82,6 @@ export default {
       isAdminUser: false,
       selectedItem: 0,
       drawer: null,
-      items: [
-        { icon: 'mdi-pencil' },
-        { icon: 'mdi-account' }
-      ]
     }
   },
   beforeMount(){
@@ -108,7 +113,11 @@ export default {
   },
   methods: {
     checkSelectedItem:function() {
-      if (this.$route.name == "AdminOrganization") {
+      if (this.$route.name == "DisplayView") {
+        this.selectedItem = 0;
+      } else if (this.$route.name == "UserProfile") {
+        this.selectedItem = 1;
+      } else if (this.$route.name == "AdminOrganization") {
         this.selectedItem = 2;
       }
     },
@@ -121,6 +130,12 @@ export default {
           this.$router.push("/");
         })
         .catch(err => alert(err.message));
+    },
+    accessDisplayView() {
+      this.$router.push("/displayview");
+    },
+    accessUserPage() {
+      this.$router.push("/displayview/user-profile");
     },
     accessOrganization() {
       this.$router.push("/displayview/admin-organization");
