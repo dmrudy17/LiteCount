@@ -31,7 +31,7 @@
             <v-btn  color="primary" @click="updateQuantity(); addMap();">
             <span>Increment</span>
             </v-btn>
-            <v-btn  color="secondary" @click="decrementQuantity">
+            <v-btn  color="secondary" @click="decrementQuantity(); addMap()">
             <span>Decrement</span>
             </v-btn>
         </v-card-actions>
@@ -100,6 +100,8 @@ export default {
                     this.dataObject = article
                 }
             }) 
+
+            this.$emit("sendId", this.selectedId);
         },
         updateQuantity()
         {
@@ -116,7 +118,6 @@ export default {
         async addMap()
         {
             const db = firebase.firestore();
-            console.log(this.fullName)
             var itemRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.selectedId);
             var time = new Date().toLocaleDateString("en-US");
             var logObject = {
@@ -131,7 +132,6 @@ export default {
         },
         decrementQuantity()
         {
-            console.log(this.updatedValue);
             const db = firebase.firestore();
             const decrement = firebase.firestore.FieldValue.increment(-1 * this.updatedValue);
             const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);

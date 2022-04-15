@@ -1,11 +1,19 @@
 <template>
 <div>
-    <v-spacer class="spacer"></v-spacer>
-    <item-puller></item-puller>
-    <SideBar />
-    <FileSelect />
-    <v-spacer class="spacer"></v-spacer>
-    <excel-download></excel-download>
+    <v-container class ="my-5">
+        <v-layout row wrap>
+            <v-flex xs6>
+                <item-puller @sendId="setId"></item-puller>
+            </v-flex>
+            <v-flex xs6>
+                <logging-card :itemId="this.itemId"></logging-card>
+            </v-flex>
+            <SideBar />
+            <FileSelect />
+            <v-spacer class="spacer"></v-spacer>
+            <excel-download></excel-download>
+        </v-layout>
+    </v-container>
 </div>
 </template>
 
@@ -18,6 +26,7 @@ import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
 import FileSelect from '../components/FileSelect';
 import ExcelDownload from '../components/ExcelDownload';
+import LoggingCard from '../components/LoggingCard'
 
 export default {
     name: 'DisplayView',
@@ -26,7 +35,14 @@ export default {
         FileSelect,
         ItemPuller,
         ExcelDownload,
+        LoggingCard,
     },
+    data() {
+          return {
+              itemId: ''
+          }
+    },
+        
     beforeMount(){
         firebase.auth().onAuthStateChanged((user) => {
             if(!user)
@@ -35,6 +51,14 @@ export default {
             }
         })
     },
+        methods:
+    {
+        setId(event)
+        {
+            this.itemId = event
+        }
+    }
+
 }
 </script>
 
