@@ -74,7 +74,7 @@ export default {
       selectedItem: 0,
       drawer: null,
       items: [
-        { icon: 'mdi-home-city' },
+        { icon: 'mdi-pencil' },
         { icon: 'mdi-account' }
       ]
     }
