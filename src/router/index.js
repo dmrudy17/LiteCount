@@ -5,6 +5,7 @@ import SignUp from "../views/SignUp.vue";
 import DisplayView from "../views/DisplayView.vue";
 import VerifyClient from "../views/VerifyClient.vue";
 import AdminOrganization from "../views/AdminOrganization.vue";
+import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -47,6 +48,14 @@ const routes = [
         path: "/verify-client",
         name: "VerifyClient",
         component: VerifyClient,
+    },
+    {
+        path: "*",
+        name: "NotFound",
+        component: NotFound,
+        meta: {
+            hideNavbar: true,
+        },
     },
 ];
 
