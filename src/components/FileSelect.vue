@@ -1,17 +1,39 @@
 <template>
 <div ref="mySlot">
     <section>
-      <input type="file" @change="onChange" />
-      <xlsx-read :file="file">
-        <xlsx-json :sheet="selectedSheet">
-          <template #default="{collection}" >
-            <div>
-              {{ collection }}
-            </div>
-          </template>
-        </xlsx-json>
-      </xlsx-read>
-       <v-btn @click="sendData"></v-btn>
+      <v-card
+        class="mx-auto"
+        max-width="400"
+      >
+        <input type="file" @change="onChange" />
+          <xlsx-read :file="file">
+            <xlsx-json :sheet="selectedSheet">
+              <template #default="{collection}" >
+                <div class="excel-output">
+                  {{ collection }}
+                </div>
+              </template>
+            </xlsx-json>
+          </xlsx-read>
+        <v-layout justify-center>
+          <v-card-actions>
+            <!-- <v-btn @click="sendData"></v-btn> -->
+          <v-btn
+            color="blue-grey"
+            class="ma-2 white--text"
+            fab
+            @click="sendData();"
+          >
+            <v-icon
+              right
+              dark
+            >
+              mdi-cloud-upload
+            </v-icon>
+          </v-btn>
+          </v-card-actions>
+        </v-layout>
+      </v-card>
     </section>
     </div>
 </template>
@@ -55,8 +77,13 @@ export default {
           Quantity: 0,
         })
       }
-      
     }
   }
 }
 </script>
+
+<style scoped>
+.excel-output {
+  display: none;
+}
+</style>

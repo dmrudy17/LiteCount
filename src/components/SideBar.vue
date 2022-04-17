@@ -57,6 +57,18 @@
                 <v-icon>mdi-account-group-outline</v-icon>
               </v-list-item-icon>
             </v-list-item>
+            <v-list-item
+              v-if="isAdminUser"
+              active-class="border"
+              :ripple="false"
+              class="m1-1 my-3 ml-1"
+            >
+              <b></b>
+              <b></b>
+              <v-list-item-icon active-class="border" @click="accessInventoryPage()">
+                <v-icon>mdi-database-edit</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
           </v-list-item-group>
         </v-list>
         <div class="signout-button">
@@ -119,6 +131,8 @@ export default {
         this.selectedItem = 1;
       } else if (this.$route.name == "AdminOrganization") {
         this.selectedItem = 2;
+      } else if (this.$route.name == "AdminUpload") {
+        this.selectedItem = 3;
       }
     },
     logOut() {
@@ -139,7 +153,10 @@ export default {
     },
     accessOrganization() {
       this.$router.push("/displayview/admin-organization");
-    }
+    },
+    accessInventoryPage() {
+      this.$router.push("/displayview/admin-upload");
+    },
   }
 }
 </script>
