@@ -2,6 +2,7 @@
 <div ref="mySlot">
     <section>
       <v-card
+        v-if="!inventoryTableExists"
         class="mx-auto"
         max-width="400"
       >
@@ -17,7 +18,6 @@
           </xlsx-read>
         <v-layout justify-center>
           <v-card-actions>
-            <!-- <v-btn @click="sendData"></v-btn> -->
           <v-btn
             color="blue-grey"
             class="ma-2 white--text"
@@ -31,6 +31,23 @@
               mdi-cloud-upload
             </v-icon>
           </v-btn>
+          </v-card-actions>
+        </v-layout>
+      </v-card>
+      <v-card
+        v-if="inventoryTableExists"
+        class="mx-auto"
+        max-width="400"
+      >
+        <v-layout justify-center>
+          <v-card-actions>
+            <v-btn
+              color="error"
+              class="ma-2 white--text"
+              @click="wipeTable();"
+            >
+              Wipe Table
+            </v-btn>
           </v-card-actions>
         </v-layout>
       </v-card>
@@ -51,10 +68,25 @@ export default {
   },
   data() {
     return {
+      inventoryTableExists: false,
       file: null,
       selectedSheet: 0,
       mainCollection: [],
     };
+  },
+  beforeMount(){
+    const dbStore = firebase.firestore();
+
+    dbStore
+    .collection("Clients")
+    .doc("Litehouse")
+    .collection("Items")
+    .get()
+    .then((querySnapshot) => {
+      if (!querySnapshot.empty) {
+        this.inventoryTableExists = true;
+      }
+    })
   },
   methods: {
     onChange(event) {
@@ -83,8 +115,14 @@ export default {
       }
 
       alert("Table upload successful!")
+    },
+    wipeTable () {
+      alert("WARNING: BE SURE YOU HAVE EXPORTED NEEDED INVENTORY INFORMATION BEFORE WIPING TABLE");
+      if (confirm("Are you sure you want to wipe all inventory data? All changes will be lost.")) {
+        console.log("Yes received")
+      }
     }
-  }
+  },
 }
 </script>
 
