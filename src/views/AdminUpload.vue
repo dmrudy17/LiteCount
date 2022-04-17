@@ -8,7 +8,7 @@
       <h2 class="ml-2 mt-3">Upload or Delete Database Table</h2>
     </div>
     <div class="header-3" :style="{ color: '#000E89' }">
-      <h3 class="ml-2 mt-3">Table must be in Excel format</h3>
+      <h3 class="ml-2 mt-3">Table must be in Excel (.xlsx) format</h3>
     </div>
     <FileSelect />
   </div>

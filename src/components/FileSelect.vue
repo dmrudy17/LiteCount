@@ -59,6 +59,10 @@ export default {
   methods: {
     onChange(event) {
       this.file = event.target.files ? event.target.files[0] : null;
+      var allowedExtensions = /(\.xlsx)$/i
+      if(!allowedExtensions.exec(this.file.name)) {
+        alert("Invalid file type!");
+      }
     },
     sendData () {
       this.mainCollection = this.$refs.mySlot.textContent    
@@ -77,6 +81,8 @@ export default {
           Quantity: 0,
         })
       }
+
+      alert("Table upload successful!")
     }
   }
 }
