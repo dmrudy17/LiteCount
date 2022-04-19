@@ -124,7 +124,6 @@ export default {
                 "User" : this.fullName,
                 "Quantity": this.dataObject.Quantity,
                 "Date": time, 
-                "Change": this.updatedValue, 
             }
             itemRef.update({
                 "logs": firebase.firestore.FieldValue.arrayUnion(logObject)
