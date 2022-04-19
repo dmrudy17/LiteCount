@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mx-auto"
-    max-width="1000"
+    max-width="600"
     tile
   >
     <v-img
@@ -19,11 +19,13 @@
         >
           <v-avatar
             class="profile"
-            color="grey"
-            size="284"
+            color="#000E89"
+            size="134"
             tile
           >
-            <v-img src="assets/ava2.jpg"></v-img>
+            <v-icon dark size="114" class="ml-3">
+              mdi-account-circle
+            </v-icon>
           </v-avatar>
         </v-col>
         <v-col class="py-0">
@@ -41,6 +43,16 @@
               </v-list-item-content>
           </v-list-item>
         </v-col>
+            <v-expand-transition>
+    <v-btn
+      color="primary"
+      depressed
+      class="mr-5 mb-5"
+      @click ="remove();AuthRemove()"
+    >
+      Delete Account
+    </v-btn>
+    </v-expand-transition>
       </v-row>
     </v-img>
   </v-card>
@@ -55,6 +67,7 @@ export default {
   name: "ProfileCard",
   data(){
       return{
+          users: [],
           name:null,
           email:null,
       }
@@ -70,11 +83,8 @@ export default {
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
             const user = querySnapshot.docs[0].data()
-            console.log(user);
             this.name = user.name;
             this.email = user.email;
-            console.log(this.email);
-            console.log(this.name);
           } else {
             console.log("No user found");
           }
@@ -82,6 +92,36 @@ export default {
       }
     })
   },
+
+  methods: {
+    remove(){
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+        firebase.firestore()
+        .collection("Clients")
+        .doc("Litehouse")
+        .collection("Users")
+        .doc(user.uid)
+        .get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+              console.log(user.uid);
+              firebase.firestore()
+              .collection("Clients")
+              .doc("Litehouse")
+              .collection("Users")
+              .doc(user.uid).delete()
+            }
+
+        })
+        }
+      })
+  },
+  async AuthRemove(){
+    await firebase.auth().currentUser.delete()
+    this.$router.push('/');
+  }
+}
 
 };
 </script>
