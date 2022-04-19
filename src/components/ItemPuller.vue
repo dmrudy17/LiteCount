@@ -107,8 +107,8 @@ export default {
   },
   methods:
   {
-       loadValues(e)
-        {
+    loadValues(e)
+    {
             this.nameOfDocument = e;
             const db = firebase.firestore()
             const articleRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(e)
@@ -122,9 +122,10 @@ export default {
             }) 
 
             this.$emit("sendId", this.selectedId);
-        },
-        updateQuantity()
-        {
+    },
+    updateQuantity()
+    {
+            console.log("triggered 1")
             const db = firebase.firestore();
             const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
             const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
@@ -134,29 +135,9 @@ export default {
       var number = parseInt(this.updatedValue)
       this.dataObject.Quantity = this.dataObject.Quantity + number;
     },
-    async addMap() {
-      const db = firebase.firestore();
-      console.log(this.fullName)
-      var itemRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.selectedId);
-      var time = new Date().toLocaleDateString("en-US");
-      var logObject = {
-          "User" : this.fullName,
-          "Quantity": this.dataObject.Quantity,
-          "Date": time, 
-      }
-      itemRef.update({
-          "logs": firebase.firestore.FieldValue.arrayUnion(logObject)
-      })
-    },
-    decrementQuantity() {
-      const db = firebase.firestore();
-      const decrement = firebase.firestore.FieldValue.increment(-1 * this.updatedValue);
-      const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
-      newRef.update({Quantity:decrement})
-
-    },
     async addMap()
     {
+        console.log("triggered 2")
         const db = firebase.firestore();
         var itemRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.selectedId);
         var time = new Date().toLocaleDateString("en-US");
@@ -164,6 +145,7 @@ export default {
             "User" : this.fullName,
             "Quantity": this.dataObject.Quantity,
             "Date": time, 
+            "Change": this.updatedValue,
         }
         itemRef.update({
             "logs": firebase.firestore.FieldValue.arrayUnion(logObject)
