@@ -34,7 +34,7 @@
             <v-btn class="mr-6" color="secondary" @click="decrementQuantity(); addMap();">
               <span>Decrement</span>
             </v-btn>
-            <v-btn v-if="isAdminUser" color="error" @click="overwriteQuantity()">
+            <v-btn v-if="isAdminUser" color="error" @click="overwriteQuantity(); addMap();">
               <span>Overwrite Quantity</span>
             </v-btn>
         </v-card-actions>
@@ -185,7 +185,7 @@ export default {
         const db = firebase.firestore();
         const overwrite = firebase.firestore.FieldValue.increment(this.updatedValue);
         const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
-        newRef.set({Quantity:overwrite})
+        newRef.update({Quantity:overwrite})
 
         //Update on card
         var number = parseInt(this.updatedValue)
