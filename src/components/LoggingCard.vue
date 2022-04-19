@@ -43,7 +43,7 @@ import 'firebase/compat/firestore';
     data() {
           return {
           logArray: [],
-          headerArray: [{ text: 'Date Changed', value: 'Date' }, { text: 'User', value: 'User' }, { text: 'Quantity', value: 'Quantity' },]
+          headerArray: [{ text: 'Date Changed', value: 'Date' }, { text: 'User', value: 'User' }, { text: 'Quantity', value: 'Quantity' }, { text: 'Change', value: 'Change' }]
           }
     },
     watch: {
