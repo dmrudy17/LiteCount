@@ -25,6 +25,7 @@
             @click="sendData();"
           >
             <v-icon
+              class="mr-2"
               right
               dark
             >
@@ -46,7 +47,7 @@
               class="ma-2 white--text"
               @click="wipeTable();"
             >
-              Wipe Table
+              Clear Inventory Data
             </v-btn>
           </v-card-actions>
         </v-layout>
@@ -119,10 +120,17 @@ export default {
     wipeTable () {
       alert("WARNING: BE SURE YOU HAVE EXPORTED NEEDED INVENTORY INFORMATION BEFORE WIPING TABLE");
       if (confirm("Are you sure you want to wipe all inventory data? All changes will be lost.")) {
-        console.log("Yes received")
+        const db = firebase.firestore();
+        let itemsRef = db.collection('Clients').doc("Litehouse").collection("Items");
+
+        itemsRef.get().then(itemSnapshot => {
+          itemSnapshot.forEach(doc => {
+            itemsRef.doc(doc.id).delete();
+          })
+        })
       }
     }
-  },
+  }
 }
 </script>
 
