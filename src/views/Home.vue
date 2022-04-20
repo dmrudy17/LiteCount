@@ -13,7 +13,6 @@
           <v-flex xs12 md6>
             <image-card-1 title="Analytics" action="Read More" paragraph="Check out how fast we are growing by analyzing our database" :imageSource="require('@/assets/Analytics-Image.jpg')"></image-card-1>
           </v-flex>
-          <ExcelParse />
       </v-layout>
 
       <v-layout row wrap>
@@ -26,7 +25,6 @@
 <script>
   import ImageCard1 from '../components/ImageCard1'
   import HomePageCarousel from '../components/HomePageCarousel'
-  import ExcelParse from '../components/ExcelParse'
 
   export default {
     name: 'HomeView',
@@ -34,7 +32,6 @@
     components: {
       ImageCard1,
       HomePageCarousel,
-      ExcelParse
     },
   }
 </script>
