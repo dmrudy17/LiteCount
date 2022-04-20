@@ -7,6 +7,7 @@ import VerifyClient from "../views/VerifyClient.vue";
 import AdminOrganization from "../views/AdminOrganization.vue";
 import AdminUpload from "../views/AdminUpload.vue";
 import NotFound from "../views/NotFound.vue";
+import UserProfile from "../views/UserProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,14 @@ const routes = [
         path: "/displayview/admin-upload",
         name: "AdminUpload",
         component: AdminUpload,
+        meta: {
+            hideNavbar: true,
+        },
+    },
+    {
+        path: "/displayview/user-profile",
+        name: "UserProfile",
+        component: UserProfile,
         meta: {
             hideNavbar: true,
         },

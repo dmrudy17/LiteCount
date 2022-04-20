@@ -31,7 +31,7 @@
 
     components: {
       ImageCard1,
-      HomePageCarousel
+      HomePageCarousel,
     },
   }
 </script>
