@@ -3,13 +3,21 @@
     <v-container fluid>
       <v-row align="center" justify="center" dense>
         <v-col cols="12" sm="8" md="4">
-          <v-card elevation="1">
-            <v-card-title class="indigo--text text-h5 justify-center">Log in to LiteCount</v-card-title>
+          <v-card
+            elevation="1"
+            max-width="500"
+          >
+            <v-card-title class="indigo--text text-h5 justify-center">Create new user</v-card-title>
             <v-form
               ref="form"
               v-model="valid"
               lazy-validation
             >
+              <v-text-field
+                v-model="full_name"
+                label="Full Name"
+                color="#0077B6"
+              ></v-text-field>
               <v-text-field
                 v-model="email"
                 :rules="[rules.required, rules.email]"
@@ -42,14 +50,6 @@
               >
                 Submit
               </v-btn>
-              <v-alert
-                outlined
-                type="success"
-                :value="alert"
-                text
-              >
-                Successfully logged in!
-              </v-alert>
             </v-form>
           </v-card>
         </v-col>
@@ -64,14 +64,20 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
   export default {
-    name: 'LoginCard',
+    name: 'AdminSignUpCard',
+    beforeMount(){
+
+    },
     data () {
       return {
-        alert: false,
+        loader: null,
+        loading: false,
         valid: true,
         show: false,
         email: '',
         password: '',
+        full_name: '',
+        client_id: '',
         rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
@@ -83,19 +89,39 @@ import 'firebase/compat/firestore';
         },
       }
     },
+
     methods: {
       validate () {
-        // if (this.$refs.form.validate() == true) {
-        //   this.loading = true
-        //   this.loader = this.loading
-        // }
+        const config = {
+          apiKey: "AIzaSyDlW80QsSNWI0QeTP02F1oRuSkDBF6S_Z4",
+          authDomain: "litecount-5fba6.firebaseapp.com",
+          projectId: "litecount-5fba6",
+          storageBucket: "litecount-5fba6.appspot.com",
+          messagingSenderId: "1095864396718",
+          appId: "1:1095864396718:web:dce04920df42396f14f63f",
+          measurementId: "G-HKS5CKY6KG",
+        };
+        const dbStore = firebase.firestore();
 
-        firebase
+        // Initialize secondary app for special admin function
+        var secondaryApp = firebase.initializeApp(config, "Secondary");
+
+        secondaryApp
             .auth()
-            .signInWithEmailAndPassword(this.email, this.password)
-            .then(this.alert = true)
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then(cred => {
+              dbStore.collection("Clients").doc("Litehouse").collection("Users").doc(cred.user.uid).set({
+                  email: cred.user.email,
+                  name: this.full_name,
+                  organization: "Litehouse",
+              })
+              secondaryApp.auth().signOut();
+              secondaryApp.delete();
+              alert(this.full_name + "'s account successfully created!");
+              return true;
+            })
             .catch(err => alert(err.message))
-      },
+      }
     },
     watch: {
       loader () {

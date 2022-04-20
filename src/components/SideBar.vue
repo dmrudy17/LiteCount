@@ -24,16 +24,25 @@
             link
           >
             <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
               active-class="border"
               :ripple="false"
               class="ml-1 my-3"
             >
               <b></b>
               <b></b>
-              <v-list-item-icon active-class="border">
-                <v-icon v-text="item.icon"></v-icon>
+              <v-list-item-icon active-class="border" @click="accessDisplayView()">
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-list-item
+              active-class="border"
+              :ripple="false"
+              class="ml-1 my-3"
+            >
+              <b></b>
+              <b></b>
+              <v-list-item-icon active-class="border" @click="accessUserPage()">
+                <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
             </v-list-item>
             <v-list-item
@@ -46,6 +55,18 @@
               <b></b>
               <v-list-item-icon active-class="border" @click="accessOrganization()">
                 <v-icon>mdi-account-group-outline</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-list-item
+              v-if="isAdminUser"
+              active-class="border"
+              :ripple="false"
+              class="m1-1 my-3 ml-1"
+            >
+              <b></b>
+              <b></b>
+              <v-list-item-icon active-class="border" @click="accessInventoryPage()">
+                <v-icon>mdi-database-edit</v-icon>
               </v-list-item-icon>
             </v-list-item>
           </v-list-item-group>
@@ -73,10 +94,6 @@ export default {
       isAdminUser: false,
       selectedItem: 0,
       drawer: null,
-      items: [
-        { icon: 'mdi-home-city' },
-        { icon: 'mdi-account' }
-      ]
     }
   },
   beforeMount(){
@@ -108,8 +125,14 @@ export default {
   },
   methods: {
     checkSelectedItem:function() {
-      if (this.$route.name == "AdminOrganization") {
+      if (this.$route.name == "DisplayView") {
+        this.selectedItem = 0;
+      } else if (this.$route.name == "UserProfile") {
+        this.selectedItem = 1;
+      } else if (this.$route.name == "AdminOrganization") {
         this.selectedItem = 2;
+      } else if (this.$route.name == "AdminUpload") {
+        this.selectedItem = 3;
       }
     },
     logOut() {
@@ -122,9 +145,18 @@ export default {
         })
         .catch(err => alert(err.message));
     },
+    accessDisplayView() {
+      this.$router.push("/displayview");
+    },
+    accessUserPage() {
+      this.$router.push("/displayview/user-profile");
+    },
     accessOrganization() {
       this.$router.push("/displayview/admin-organization");
-    }
+    },
+    accessInventoryPage() {
+      this.$router.push("/displayview/admin-upload");
+    },
   }
 }
 </script>

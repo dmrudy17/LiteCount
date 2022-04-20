@@ -32,7 +32,6 @@ export default {
     name: 'DisplayView',
     components: {
         SideBar,
-        FileSelect,
         ItemPuller,
         ExcelDownload,
         LoggingCard,

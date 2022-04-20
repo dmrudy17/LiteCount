@@ -1,17 +1,57 @@
 <template>
 <div ref="mySlot">
     <section>
-      <input type="file" @change="onChange" />
-      <xlsx-read :file="file">
-        <xlsx-json :sheet="selectedSheet">
-          <template #default="{collection}" >
-            <div>
-              {{ collection }}
-            </div>
-          </template>
-        </xlsx-json>
-      </xlsx-read>
-       <v-btn @click="sendData"></v-btn>
+      <v-card
+        v-if="!inventoryTableExists"
+        class="mx-auto"
+        max-width="400"
+      >
+        <input type="file" @change="onChange" />
+          <xlsx-read :file="file">
+            <xlsx-json :sheet="selectedSheet">
+              <template #default="{collection}" >
+                <div class="excel-output">
+                  {{ collection }}
+                </div>
+              </template>
+            </xlsx-json>
+          </xlsx-read>
+        <v-layout justify-center>
+          <v-card-actions>
+          <v-btn
+            color="blue-grey"
+            class="ma-2 white--text"
+            fab
+            @click="sendData();"
+          >
+            <v-icon
+              class="mr-2"
+              right
+              dark
+            >
+              mdi-cloud-upload
+            </v-icon>
+          </v-btn>
+          </v-card-actions>
+        </v-layout>
+      </v-card>
+      <v-card
+        v-if="inventoryTableExists"
+        class="mx-auto"
+        max-width="400"
+      >
+        <v-layout justify-center>
+          <v-card-actions>
+            <v-btn
+              color="error"
+              class="ma-2 white--text"
+              @click="wipeTable();"
+            >
+              Clear Inventory Data
+            </v-btn>
+          </v-card-actions>
+        </v-layout>
+      </v-card>
     </section>
     </div>
 </template>
@@ -29,14 +69,33 @@ export default {
   },
   data() {
     return {
+      inventoryTableExists: false,
       file: null,
       selectedSheet: 0,
       mainCollection: [],
     };
   },
+  beforeMount(){
+    const dbStore = firebase.firestore();
+
+    dbStore
+    .collection("Clients")
+    .doc("Litehouse")
+    .collection("Items")
+    .get()
+    .then((querySnapshot) => {
+      if (!querySnapshot.empty) {
+        this.inventoryTableExists = true;
+      }
+    })
+  },
   methods: {
     onChange(event) {
       this.file = event.target.files ? event.target.files[0] : null;
+      var allowedExtensions = /(\.xlsx)$/i
+      if(!allowedExtensions.exec(this.file.name)) {
+        alert("Invalid file type!");
+      }
     },
     sendData () {
       this.mainCollection = this.$refs.mySlot.textContent    
@@ -52,11 +111,31 @@ export default {
       {
         dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Item Number"]).set({
           ItemName: item["Item Name"],
-          Quantity: item["Quantity"],
+          Quantity: 0,
         })
       }
-      
+
+      alert("Table upload successful!")
+    },
+    wipeTable () {
+      alert("WARNING: BE SURE YOU HAVE EXPORTED NEEDED INVENTORY INFORMATION BEFORE WIPING TABLE");
+      if (confirm("Are you sure you want to wipe all inventory data? All changes will be lost.")) {
+        const db = firebase.firestore();
+        let itemsRef = db.collection('Clients').doc("Litehouse").collection("Items");
+
+        itemsRef.get().then(itemSnapshot => {
+          itemSnapshot.forEach(doc => {
+            itemsRef.doc(doc.id).delete();
+          })
+        })
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+.excel-output {
+  display: none;
+}
+</style>
