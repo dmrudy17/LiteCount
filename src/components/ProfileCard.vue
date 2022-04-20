@@ -48,7 +48,7 @@
       color="primary"
       depressed
       class="mr-5 mb-5"
-      @click ="remove();AuthRemove()"
+      @click ="remove()"
     >
       Delete Account
     </v-btn>
@@ -79,48 +79,26 @@ export default {
         .collection("Clients")
         .doc("Litehouse")
         .collection("Users")
+        .doc(user.uid)
         .get()
-        .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-            const user = querySnapshot.docs[0].data()
-            this.name = user.name;
-            this.email = user.email;
-          } else {
-            console.log("No user found");
-          }
+        .then(doc => {
+          this.name = doc.data().name;
+          this.email = doc.data().email;
         })
       }
     })
   },
 
   methods: {
-    remove(){
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-        firebase.firestore()
-        .collection("Clients")
-        .doc("Litehouse")
-        .collection("Users")
-        .doc(user.uid)
-        .get()
-        .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-              console.log(user.uid);
-              firebase.firestore()
-              .collection("Clients")
-              .doc("Litehouse")
-              .collection("Users")
-              .doc(user.uid).delete()
-            }
-
-        })
-        }
+    async remove(){
+      const dbStore = firebase.firestore();
+      
+      dbStore.collection("Clients").doc("Litehouse").collection("Users").doc(firebase.auth().currentUser.uid).delete()
+      .then(() => {
+        firebase.auth().currentUser.delete()
+        this.$router.push('/');
       })
-  },
-  async AuthRemove(){
-    await firebase.auth().currentUser.delete()
-    this.$router.push('/');
-  }
+    },
 }
 
 };
