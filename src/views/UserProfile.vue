@@ -2,7 +2,7 @@
   <div class="about">
     <SideBar />
     <div class="header" :style="{ color: '#000E89' }">
-      <h1 class="ml-2">My Profile</h1>
+      <h1 class="ml-2 mt-3">My Profile</h1>
     </div>
     <ProfileCard />
   </div>
