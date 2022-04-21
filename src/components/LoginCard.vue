@@ -33,7 +33,6 @@
               ></v-text-field>
               <v-btn
                 :disabled="!valid"
-                :loading="loading"
                 class="white--text rounded-0"
                 color="#000E89"
                 x-large
@@ -85,27 +84,12 @@ import 'firebase/compat/firestore';
     },
     methods: {
       validate () {
-        // if (this.$refs.form.validate() == true) {
-        //   this.loading = true
-        //   this.loader = this.loading
-        // }
-
         firebase
             .auth()
             .signInWithEmailAndPassword(this.email, this.password)
             .then(this.alert = true)
             .catch(err => alert(err.message))
       },
-    },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 3000)
-
-        this.loader = null
-      },
-    },
+    }
   }
 </script>
