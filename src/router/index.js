@@ -5,7 +5,7 @@ import SignUp from "../views/SignUp.vue";
 import DisplayView from "../views/DisplayView.vue";
 import VerifyClient from "../views/VerifyClient.vue";
 import AdminOrganization from "../views/AdminOrganization.vue";
-import AdminUpload from "../views/AdminUpload.vue";
+import AdminInventory from "../views/AdminInventory.vue";
 import NotFound from "../views/NotFound.vue";
 import UserProfile from "../views/UserProfile.vue";
 
@@ -47,9 +47,9 @@ const routes = [
         },
     },
     {
-        path: "/displayview/admin-upload",
-        name: "AdminUpload",
-        component: AdminUpload,
+        path: "/displayview/admin-inventory",
+        name: "AdminInventory",
+        component: AdminInventory,
         meta: {
             hideNavbar: true,
         },

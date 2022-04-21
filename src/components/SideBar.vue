@@ -157,6 +157,8 @@ export default {
       isAdminUser: false,
       selectedItem: 0,
       drawer: null,
+      on: '',
+      attrs: '',
     }
   },
   beforeMount(){
@@ -194,7 +196,7 @@ export default {
         this.selectedItem = 1;
       } else if (this.$route.name == "AdminOrganization") {
         this.selectedItem = 2;
-      } else if (this.$route.name == "AdminUpload") {
+      } else if (this.$route.name == "AdminInventory") {
         this.selectedItem = 3;
       }
     },
@@ -218,7 +220,7 @@ export default {
       this.$router.push("/displayview/admin-organization");
     },
     accessInventoryPage() {
-      this.$router.push("/displayview/admin-upload");
+      this.$router.push("/displayview/admin-inventory");
     },
   }
 }
