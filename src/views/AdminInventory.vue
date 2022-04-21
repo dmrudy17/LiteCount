@@ -19,7 +19,7 @@ import SideBar from '../components/SideBar';
 import FileSelect from '../components/FileSelect';
 
 export default {
-    name: 'AdminUpload',
+    name: 'AdminInventory',
     components: {
         SideBar,
         FileSelect
