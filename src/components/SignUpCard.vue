@@ -52,6 +52,14 @@
               >
                 Submit
               </v-btn>
+              <v-alert
+                outlined
+                type="success"
+                :value="alert"
+                text
+              >
+                Account successfully created!
+              </v-alert>
             </v-form>
           </v-card>
         </v-col>
@@ -72,6 +80,7 @@ import 'firebase/compat/firestore';
     },
     data () {
       return {
+        alert: false,
         valid: true,
         show: false,
         email: '',
@@ -98,6 +107,7 @@ import 'firebase/compat/firestore';
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
+              this.alert = true;
               return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
                   email: cred.user.email,
                   name: this.full_name,
