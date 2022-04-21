@@ -2,6 +2,12 @@
 <div>
     <v-container class ="my-5">
         <v-layout row wrap>
+            <v-flex xs12>
+                <div class="header">
+                    <h1>My Dashboard</h1>
+                </div>
+            </v-flex>
+            <v-spacer></v-spacer>
             <v-flex xs6>
                 <item-puller @sendId="setId"></item-puller>
             </v-flex>
@@ -64,5 +70,10 @@ export default {
 <style scoped>
 .spacer{
   height: 100px;
+}
+h1 {
+    color:#000E89;
+    position: absolute;
+    left:0;
 }
 </style>
