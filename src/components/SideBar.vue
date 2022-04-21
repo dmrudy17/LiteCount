@@ -205,7 +205,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          console.log("Signed out");
+          alert("Signed out");
           this.$router.push("/");
         })
         .catch(err => alert(err.message));
