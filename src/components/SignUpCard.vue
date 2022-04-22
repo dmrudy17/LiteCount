@@ -107,6 +107,10 @@ import 'firebase/compat/firestore';
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
+              const user = firebase.auth().currentUser;
+              user.sendEmailVerification({
+                url: "http://localhost:8080",
+              });
               this.alert = true;
               return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
                   email: cred.user.email,
