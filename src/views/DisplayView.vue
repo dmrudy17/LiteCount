@@ -4,7 +4,7 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <div class="header">
-                    <h1>My Dashboard</h1>
+                    <h1>My Workspace</h1>
                 </div>
             </v-flex>
             <v-spacer></v-spacer>
@@ -15,7 +15,7 @@
                 <logging-card :itemId="this.itemId"></logging-card>
             </v-flex>
             <SideBar />
-            <FileSelect />
+            <AddDocumentCard/>
             <v-spacer class="spacer"></v-spacer>
             <excel-download></excel-download>
         </v-layout>
@@ -30,9 +30,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
-import FileSelect from '../components/FileSelect';
 import ExcelDownload from '../components/ExcelDownload';
 import LoggingCard from '../components/LoggingCard'
+import AddDocumentCard from '../components/AddDocumentCard'
 
 export default {
     name: 'DisplayView',
@@ -41,6 +41,7 @@ export default {
         ItemPuller,
         ExcelDownload,
         LoggingCard,
+        AddDocumentCard,
     },
     data() {
           return {
