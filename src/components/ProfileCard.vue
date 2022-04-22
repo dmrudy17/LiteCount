@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto mt-8"
     max-width="600"
     tile
   >
@@ -91,6 +91,8 @@ export default {
 
   methods: {
     async remove(){
+      alert("WARNING: APPROACHING TO DELETING ACCOUNT");
+      if (confirm("Are you sure you want to delete your account?")) {
       const dbStore = firebase.firestore();
       
       dbStore.collection("Clients").doc("Litehouse").collection("Users").doc(firebase.auth().currentUser.uid).delete()
@@ -98,6 +100,7 @@ export default {
         firebase.auth().currentUser.delete()
         this.$router.push('/');
       })
+      }
     },
 }
 
