@@ -4,7 +4,7 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <div class="header">
-                    <h1>My Workspace</h1>
+                    <h1 class="ml-2">My Workspace</h1>
                 </div>
             </v-flex>
             <v-spacer></v-spacer>
@@ -98,10 +98,11 @@ h1 {
     color:#000E89;
     position: absolute;
     left:0;
+    top:12px;
 }
 .AddDoc {
     position: absolute;
     top: 50%;
-    left: 40%;
+    left: 16%;
 }
 </style>
