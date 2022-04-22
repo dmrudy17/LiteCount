@@ -82,6 +82,7 @@ export default {
       showDownload: false,
       fileName: '',
       json_fields: {
+          "Item Id" : "itemId",
           "Item Name" : "ItemName",
           "Quantity" : "Quantity",
       },
@@ -135,15 +136,16 @@ export default {
     },
     async generateData()
     {
-        const snapshot = await firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").get()
-        snapshot.forEach(doc => {
-            const pulledVal = doc.data();
-            this.documents.push(pulledVal);
-        })
-        console.log(this.documents)
-        this.showDownload = true
-        this.fileName = new Date().toLocaleDateString("en-US");
-        console.log(this.fileName)
+      const snapshot = await firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").get()
+      snapshot.forEach(doc => {
+          const pulledVal = doc.data();
+          pulledVal.itemId = doc.id
+          this.documents.push(pulledVal);
+      })
+      console.log(this.documents)
+      this.showDownload = true
+      this.fileName = new Date().toLocaleDateString("en-US");
+      console.log(this.fileName)
     },
     wipeTable () {
       alert("WARNING: BE SURE YOU HAVE EXPORTED NEEDED INVENTORY INFORMATION BEFORE WIPING TABLE");
