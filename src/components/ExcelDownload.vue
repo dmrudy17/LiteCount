@@ -24,6 +24,7 @@ export default {
           showDownload: false,
           fileName: '',
           json_fields: {
+          "Item Id" : "itemId",
           "Item Name" : "ItemName",
           "Quantity" : "Quantity",
           }
@@ -36,6 +37,7 @@ export default {
             const snapshot = await firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").get()
             snapshot.forEach(doc => {
                 const pulledVal = doc.data();
+                pulledVal.itemId = doc.id
                 this.documents.push(pulledVal);
             })
             console.log(this.documents)
