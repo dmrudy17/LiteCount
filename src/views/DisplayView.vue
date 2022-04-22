@@ -15,9 +15,14 @@
                 <logging-card :itemId="this.itemId"></logging-card>
             </v-flex>
             <SideBar />
-            <AddDocumentCard/>
-            <v-spacer class="spacer"></v-spacer>
-            <excel-download></excel-download>
+            <div v-if="isAdminUser">
+                <v-spacer></v-spacer>
+                <v-flex>
+                    <div class="AddDoc">
+                        <AddDocumentCard/>
+                    </div>
+                </v-flex>
+            </div>
         </v-layout>
     </v-container>
 </div>
@@ -30,7 +35,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
-import ExcelDownload from '../components/ExcelDownload';
 import LoggingCard from '../components/LoggingCard'
 import AddDocumentCard from '../components/AddDocumentCard'
 
@@ -39,23 +43,41 @@ export default {
     components: {
         SideBar,
         ItemPuller,
-        ExcelDownload,
         LoggingCard,
         AddDocumentCard,
     },
     data() {
           return {
-              itemId: ''
+              itemId: '',
+              isAdminUser: false,
           }
     },
         
     beforeMount(){
+        const dbStore = firebase.firestore();
         firebase.auth().onAuthStateChanged((user) => {
             if(!user)
             {
                 this.$router.push('/login');
             }
-        })
+
+            dbStore
+            .collection("Clients")
+            .doc("Litehouse")
+            .collection("Users")
+            .where('isAdmin', '==', true)
+            .get()
+            .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const adminUser = querySnapshot.docs[0].data();
+                if (adminUser.email == user.email) {
+                this.isAdminUser = true;
+                }
+            } else {
+                console.log("No admin found");
+            }
+            })
+            })
     },
         methods:
     {
@@ -76,5 +98,10 @@ h1 {
     color:#000E89;
     position: absolute;
     left:0;
+}
+.AddDoc {
+    position: absolute;
+    top: 50%;
+    left: 40%;
 }
 </style>
