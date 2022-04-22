@@ -6,12 +6,20 @@
       color="#F7FBFE"
     >
       <div class="text-center mt-5 pb-5">
-        <font-awesome-icon
-          icon="fa-solid fa-sailboat"
-          size="2x"
-          color="#000E89"
-          style="cursor: pointer"
-          @click="$router.push('/')"/>
+        <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <font-awesome-icon
+              icon="fa-solid fa-sailboat"
+              size="2x"
+              color="#000E89"
+              style="cursor: pointer"
+              @click="$router.push('/')"
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <span>Home</span>
+        </v-tooltip>
       </div>
 
       <v-divider></v-divider>
@@ -30,10 +38,21 @@
             >
               <b></b>
               <b></b>
-              <v-list-item-icon active-class="border" @click="accessDisplayView()">
-                <v-icon>mdi-pencil</v-icon>
-              </v-list-item-icon>
+              <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-list-item-icon
+                    active-class="border"
+                    @click="accessDisplayView()"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-list-item-icon>
+                </template>
+                <span>My Workspace</span>
+              </v-tooltip>
             </v-list-item>
+            
             <v-list-item
               active-class="border"
               :ripple="false"
@@ -41,10 +60,46 @@
             >
               <b></b>
               <b></b>
-              <v-list-item-icon active-class="border" @click="accessUserPage()">
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
+              <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-list-item-icon
+                    active-class="border"
+                    @click="accessUserPage()"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                </template>
+                <span>My Profile</span>
+              </v-tooltip>
             </v-list-item>
+
+            <v-list-item
+              v-if="isAdminUser"
+              active-class="border"
+              :ripple="false"
+              class="m1-1 my-3 ml-1"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <b></b>
+              <b></b>
+              <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-list-item-icon
+                    active-class="border"
+                    @click="accessOrganization()"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-account-group-outline</v-icon>
+                  </v-list-item-icon>
+                </template>
+                <span>My Organization</span>
+              </v-tooltip>
+            </v-list-item>
+
             <v-list-item
               v-if="isAdminUser"
               active-class="border"
@@ -53,28 +108,36 @@
             >
               <b></b>
               <b></b>
-              <v-list-item-icon active-class="border" @click="accessOrganization()">
-                <v-icon>mdi-account-group-outline</v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-            <v-list-item
-              v-if="isAdminUser"
-              active-class="border"
-              :ripple="false"
-              class="m1-1 my-3 ml-1"
-            >
-              <b></b>
-              <b></b>
-              <v-list-item-icon active-class="border" @click="accessInventoryPage()">
-                <v-icon>mdi-database-edit</v-icon>
-              </v-list-item-icon>
+              <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-list-item-icon
+                    active-class="border"
+                    @click="accessInventoryPage()"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-database-edit</v-icon>
+                  </v-list-item-icon>
+                </template>
+                <span>My Inventory</span>
+              </v-tooltip>
             </v-list-item>
           </v-list-item-group>
         </v-list>
         <div class="signout-button">
-          <v-btn text @click="logOut()">
-            <font-awesome-icon icon="fas fa-sign-out-alt" size="lg" />
-          </v-btn>
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn text @click="logOut()">
+                <font-awesome-icon
+                  icon="fas fa-sign-out-alt"
+                  size="lg"
+                  v-bind="attrs"
+                  v-on="on"
+                />
+              </v-btn>
+            </template>
+            <span>Log Out</span>
+          </v-tooltip>
         </div>
       </div>
 
@@ -94,6 +157,8 @@ export default {
       isAdminUser: false,
       selectedItem: 0,
       drawer: null,
+      on: '',
+      attrs: '',
     }
   },
   beforeMount(){
@@ -131,7 +196,7 @@ export default {
         this.selectedItem = 1;
       } else if (this.$route.name == "AdminOrganization") {
         this.selectedItem = 2;
-      } else if (this.$route.name == "AdminUpload") {
+      } else if (this.$route.name == "AdminInventory") {
         this.selectedItem = 3;
       }
     },
@@ -140,7 +205,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          console.log("Signed out");
+          alert("Signed out");
           this.$router.push("/");
         })
         .catch(err => alert(err.message));
@@ -155,7 +220,7 @@ export default {
       this.$router.push("/displayview/admin-organization");
     },
     accessInventoryPage() {
-      this.$router.push("/displayview/admin-upload");
+      this.$router.push("/displayview/admin-inventory");
     },
   }
 }

@@ -38,9 +38,16 @@
       <v-card
         v-if="inventoryTableExists"
         class="mx-auto"
-        max-width="400"
+        max-width="600"
       >
         <v-layout justify-center>
+          <v-card-actions>
+            <v-btn color="success" class="mr-8" @click="generateData">Export Inventory</v-btn>
+            <json-excel :data="documents" 
+            :fields="json_fields"
+            :name="this.fileName"
+            />
+          </v-card-actions>
           <v-card-actions>
             <v-btn
               color="error"
@@ -61,14 +68,23 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
-import { XlsxRead, XlsxJson } from "../../node_modules/vue-xlsx"
+import { XlsxRead, XlsxJson } from "../../node_modules/vue-xlsx";
+import JsonExcel from "../../node_modules/vue-json-excel";
 export default {
   components: {
     XlsxRead,
-    XlsxJson
+    XlsxJson,
+    JsonExcel
   },
   data() {
     return {
+      documents: [],
+      showDownload: false,
+      fileName: '',
+      json_fields: {
+          "Item Name" : "ItemName",
+          "Quantity" : "Quantity",
+      },
       inventoryTableExists: false,
       file: null,
       selectedSheet: 0,
@@ -116,6 +132,18 @@ export default {
       }
 
       alert("Table upload successful!")
+    },
+    async generateData()
+    {
+        const snapshot = await firebase.firestore().collection('Clients').doc("Litehouse").collection("Items").get()
+        snapshot.forEach(doc => {
+            const pulledVal = doc.data();
+            this.documents.push(pulledVal);
+        })
+        console.log(this.documents)
+        this.showDownload = true
+        this.fileName = new Date().toLocaleDateString("en-US");
+        console.log(this.fileName)
     },
     wipeTable () {
       alert("WARNING: BE SURE YOU HAVE EXPORTED NEEDED INVENTORY INFORMATION BEFORE WIPING TABLE");

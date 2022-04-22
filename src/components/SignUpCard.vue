@@ -44,7 +44,6 @@
               ></v-text-field>
               <v-btn
                 :disabled="!valid"
-                :loading="loading"
                 class="white--text rounded-0"
                 color="#000E89"
                 x-large
@@ -53,6 +52,14 @@
               >
                 Submit
               </v-btn>
+              <v-alert
+                outlined
+                type="success"
+                :value="alert"
+                text
+              >
+                Account successfully created!
+              </v-alert>
             </v-form>
           </v-card>
         </v-col>
@@ -73,8 +80,7 @@ import 'firebase/compat/firestore';
     },
     data () {
       return {
-        loader: null,
-        loading: false,
+        alert: false,
         valid: true,
         show: false,
         email: '',
@@ -96,15 +102,16 @@ import 'firebase/compat/firestore';
 
     methods: {
       validate () {
-        // if (this.$refs.form.validate() == true) {
-        //   this.loading = true
-        //   this.loader = this.loading
-        // }
         const dbStore = firebase.firestore();
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
+              const user = firebase.auth().currentUser;
+              user.sendEmailVerification({
+                url: "http://localhost:8080",
+              });
+              this.alert = true;
               return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
                   email: cred.user.email,
                   name: this.full_name,
@@ -113,16 +120,6 @@ import 'firebase/compat/firestore';
             })
             .catch(err => alert(err.message))
       }
-    },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 3000)
-
-        this.loader = null
-      },
-    },
+    }
   }
 </script>

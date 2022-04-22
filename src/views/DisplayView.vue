@@ -9,9 +9,7 @@
                 <logging-card :itemId="this.itemId"></logging-card>
             </v-flex>
             <SideBar />
-            <FileSelect />
             <v-spacer class="spacer"></v-spacer>
-            <excel-download></excel-download>
         </v-layout>
     </v-container>
 </div>
@@ -24,8 +22,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import ItemPuller from '../components/ItemPuller.vue';
 import SideBar from '../components/SideBar';
-import FileSelect from '../components/FileSelect';
-import ExcelDownload from '../components/ExcelDownload';
 import LoggingCard from '../components/LoggingCard'
 
 export default {
@@ -33,7 +29,6 @@ export default {
     components: {
         SideBar,
         ItemPuller,
-        ExcelDownload,
         LoggingCard,
     },
     data() {
