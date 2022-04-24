@@ -125,19 +125,21 @@ export default {
     },
     updateQuantity()
     {
-            console.log("triggered 1")
-            const db = firebase.firestore();
-            const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
-            const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
-            newRef.update({Quantity:increment})
+      if ((isNaN(this.updatedValue)) || (this.updatedValue <= 0)) {
+        alert("Error: Invalid entry. Entry must be a positive number");
+      } else {
+        const db = firebase.firestore();
+        const increment = firebase.firestore.FieldValue.increment(this.updatedValue);
+        const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
+        newRef.update({Quantity:increment})
 
-      //Update on card
-      var number = parseInt(this.updatedValue)
-      this.dataObject.Quantity = this.dataObject.Quantity + number;
+        //Update on card
+        var number = parseInt(this.updatedValue)
+        this.dataObject.Quantity = this.dataObject.Quantity + number;
+      }
     },
     async addMap()
     {
-        console.log("triggered 2")
         const db = firebase.firestore();
         var itemRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.selectedId);
         var time = new Date().toLocaleDateString("en-US");
@@ -154,24 +156,32 @@ export default {
     },
     decrementQuantity()
     {
-      const db = firebase.firestore();
-      const decrement = firebase.firestore.FieldValue.increment(-1 * this.updatedValue);
-      const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
-      newRef.update({Quantity:decrement})
-      //Update on card
-      var number = parseInt(this.updatedValue)
-      this.dataObject.Quantity = this.dataObject.Quantity - number;
-    },
-    overwriteQuantity() {
-      if (confirm("Are you sure you would like to overwrite this quantity?")) {
+      if ((isNaN(this.updatedValue)) || (this.updatedValue <= 0)) {
+        alert("Error: Invalid entry. Entry must be a positive number");
+      } else {
         const db = firebase.firestore();
-        const overwrite = firebase.firestore.FieldValue.increment(this.updatedValue);
+        const decrement = firebase.firestore.FieldValue.increment(-1 * this.updatedValue);
         const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
-        newRef.update({Quantity:overwrite})
-
+        newRef.update({Quantity:decrement})
         //Update on card
         var number = parseInt(this.updatedValue)
-        this.dataObject.Quantity = number;
+        this.dataObject.Quantity = this.dataObject.Quantity - number;
+      }
+    },
+    overwriteQuantity() {
+      if ((isNaN(this.updatedValue)) || (this.updatedValue <= 0)) {
+        alert("Error: Invalid entry. Entry must be a positive number");
+      } else {
+        if (confirm("Are you sure you would like to overwrite this quantity?")) {
+          const db = firebase.firestore();
+          const overwrite = firebase.firestore.FieldValue.increment(this.updatedValue);
+          const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
+          newRef.update({Quantity:overwrite})
+
+          //Update on card
+          var number = parseInt(this.updatedValue)
+          this.dataObject.Quantity = number;
+        }
       }
     }
   }
