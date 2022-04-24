@@ -2,7 +2,7 @@
 <div>
     <SideBar />
     <div class="header" :style="{ color: '#000E89' }">
-      <h1 class="ml-2 mt-1">My Workspace</h1>
+      <h1 class="ml-2">My Workspace</h1>
     </div>
     <v-container class ="my-5 mt-16">
       <v-row>
