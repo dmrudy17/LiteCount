@@ -29,10 +29,10 @@
     <v-layout justify-center>
         <v-card-actions>
             <v-btn class="mr-6" color="primary" @click="updateQuantity(); addMap();">
-              <span>Increment</span>
+              <span>Add</span>
             </v-btn>
             <v-btn class="mr-6" color="secondary" @click="decrementQuantity(); addMap();">
-              <span>Decrement</span>
+              <span>Subtract</span>
             </v-btn>
             <v-btn v-if="isAdminUser" color="error" @click="overwriteQuantity(); addMap();">
               <span>Overwrite Quantity</span>
