@@ -1,29 +1,28 @@
 <template>
 <div>
-    <v-container class ="my-5">
-        <v-layout row wrap>
-            <v-flex xs12>
-                <div class="header">
-                    <h1 class="ml-2">My Workspace</h1>
-                </div>
-            </v-flex>
+    <SideBar />
+    <div class="header" :style="{ color: '#000E89' }">
+      <h1 class="ml-2 mt-1">My Workspace</h1>
+    </div>
+    <v-container class ="my-5 mt-16">
+      <v-row>
+        <v-col>
+        <item-puller @sendId="setId"></item-puller>
+        </v-col>
+        <v-col>
+        <logging-card :itemId="this.itemId"></logging-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col :align-self="start">
+          <div v-if="isAdminUser">
             <v-spacer></v-spacer>
-            <v-flex xs6>
-                <item-puller @sendId="setId"></item-puller>
-            </v-flex>
-            <v-flex xs6>
-                <logging-card :itemId="this.itemId"></logging-card>
-            </v-flex>
-            <SideBar />
-            <div v-if="isAdminUser">
-                <v-spacer></v-spacer>
-                <v-flex>
-                    <div class="AddDoc">
-                        <AddDocumentCard/>
-                    </div>
-                </v-flex>
-            </div>
-        </v-layout>
+                <div class="AddDoc">
+                    <AddDocumentCard/>
+                </div>
+          </div>
+        </v-col>
+      </v-row>
     </v-container>
 </div>
 </template>
@@ -100,9 +99,10 @@ h1 {
     left:0;
     top:12px;
 }
-.AddDoc {
+/* .AddDoc {
     position: absolute;
     top: 50%;
-    left: 16%;
-}
+    left: 8%;
+    padding-top: 125px;
+} */
 </style>

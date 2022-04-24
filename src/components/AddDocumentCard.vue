@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-card>
+    <v-card class="mx-auto" max-width="600">
         <v-card-title primary-title class="justify-center">
             <h1>Item Addition</h1>
         </v-card-title>
