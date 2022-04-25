@@ -174,7 +174,8 @@ export default {
       } else {
         if (confirm("Are you sure you would like to overwrite this quantity?")) {
           const db = firebase.firestore();
-          const overwrite = firebase.firestore.FieldValue.increment(this.updatedValue);
+          //const overwrite = firebase.firestore.FieldValue(this.updatedValue);
+          const overwrite = this.updatedValue;
           const newRef = db.collection('Clients').doc("Litehouse").collection("Items").doc(this.nameOfDocument);
           newRef.update({Quantity:overwrite})
 
