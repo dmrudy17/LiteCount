@@ -59,17 +59,16 @@ export default {
             {
                 this.$router.push('/login');
             }
-
             dbStore
             .collection("Clients")
             .doc("Litehouse")
             .collection("Users")
-            .where('isAdmin', '==', true)
+            .where('email', '==', user.email)
             .get()
             .then((querySnapshot) => {
             if (!querySnapshot.empty) {
-                const adminUser = querySnapshot.docs[0].data();
-                if (adminUser.email == user.email) {
+                const currentUser = querySnapshot.docs[0].data();
+                if (currentUser.isAdmin == true) {
                 this.isAdminUser = true;
                 }
             } else {
