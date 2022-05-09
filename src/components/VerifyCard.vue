@@ -49,7 +49,7 @@
         valid: true,
         rules: {
           required: value => !!value || 'Required.',
-          number: value => !(isNaN(value)) || 'Must be a number.'
+          //number: value => !(isNaN(value)) || 'Must be a number.'
         },
       }
     },
@@ -76,26 +76,6 @@
           }
             return { flag, documentId }
           });
-          // .get()
-          // .then(function(querySnapshot) {
-          //   if (querySnapshot.empty) {
-          //     this.flag = false;
-          //   } else {
-          //     this.flag = true;
-          //   }
-          // })
-          // .catch(err => alert(err.message));
-    
-        // console.log(this.flag)
-        // if(this.flag)
-        // {
-        //   let data = this.client_id;
-        //   this.$router.push({
-        //     name: "SignUp",
-        //     params: { data }
-        //   });
-        // }
-        
       },
 
       nextPage()
@@ -113,7 +93,7 @@
           }
           else
           {
-            console.log("Invalid User")
+            alert("Invalid User: Contact LiteCount for organization information");
           }
         })
       },
