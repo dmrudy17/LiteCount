@@ -82,9 +82,9 @@ export default {
       showDownload: false,
       fileName: '',
       json_fields: {
-          "Item Id" : "itemId",
-          "Item Name" : "ItemName",
-          "Quantity" : "Quantity",
+          "Part Number" : "itemId",
+          "Description" : "ItemName",
+          "On Hand" : "Quantity",
       },
       inventoryTableExists: false,
       file: null,
@@ -126,13 +126,12 @@ export default {
 
       for(let item of mainArray)
       {
-        dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Item Number"]).set({
-          ItemName: item["Item Name"],
+          dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Part Number"]).set({
+          ItemName: item["Description"],
           Quantity: 0,
         })
       }
 
-      alert("Table upload successful!")
     },
     async generateData()
     {
