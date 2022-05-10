@@ -9,6 +9,7 @@
     </div>
     <div class="header-3" :style="{ color: '#000E89' }">
       <h3 class="ml-2 mt-3">Table must be in Excel (.xlsx) format</h3>
+      <h3 class="m1-2 mt-3">Part numbers with forward slashes (/) are not permitted</h3>
     </div>
     <FileSelect />
   </div>

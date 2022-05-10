@@ -126,12 +126,20 @@ export default {
 
       for(let item of mainArray)
       {
-          dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Part Number"]).set({
-          ItemName: item["Description"],
-          Quantity: 0,
-        })
+          if (item["Part Number"].includes("/")) {
+            alert(item["Part Number"] + " is not a permitted part number and it has been skipped");
+            alert("Part numbers with '/' are not permitted.");
+            alert("Please navigate to 'My Workspace' and add this part without the '/'");
+            continue;
+          } else {
+            dbStore.collection("Clients").doc("Litehouse").collection("Items").doc(item["Part Number"]).set({
+              ItemName: item["Description"],
+              Quantity: 0,
+            });
+          }
       }
 
+      alert("Table upload complete");
     },
     async generateData()
     {
@@ -155,7 +163,8 @@ export default {
         itemsRef.get().then(itemSnapshot => {
           itemSnapshot.forEach(doc => {
             itemsRef.doc(doc.id).delete();
-          })
+          });
+          alert("Table deletion successful");
         })
       }
     }
