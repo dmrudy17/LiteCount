@@ -55,10 +55,18 @@
               <v-alert
                 outlined
                 type="success"
-                :value="alert"
+                :value="alertSuccess"
                 text
               >
                 Account successfully created!
+              </v-alert>
+              <v-alert
+                outlined
+                type="error"
+                :value="alertFailure"
+                text
+              >
+                Account creation failed!
               </v-alert>
             </v-form>
           </v-card>
@@ -80,7 +88,8 @@ import 'firebase/compat/firestore';
     },
     data () {
       return {
-        alert: false,
+        alertSuccess: false,
+        alertFailure: false,
         valid: true,
         show: false,
         email: '',
@@ -103,22 +112,28 @@ import 'firebase/compat/firestore';
     methods: {
       validate () {
         const dbStore = firebase.firestore();
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.email, this.password)
-            .then(cred => {
-              const user = firebase.auth().currentUser;
-              user.sendEmailVerification({
-                url: "http://localhost:8080",
-              });
-              this.alert = true;
-              return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
-                  email: cred.user.email,
-                  name: this.full_name,
-                  organization: this.documentName,
+        if ((this.full_name == '') || (this.email == '') || (this.password == '')) {
+          alert("One or more required fields are blank\nPlease enter a valid name, email address, and password");
+          this.alertFailure = true;
+        } else {
+          firebase
+              .auth()
+              .createUserWithEmailAndPassword(this.email, this.password)
+              .then(cred => {
+                const user = firebase.auth().currentUser;
+                user.sendEmailVerification({
+                  url: "http://localhost:8080",
+                });
+                this.alertFailure = false;
+                this.alertSuccess = true;
+                return dbStore.collection("Clients").doc(this.documentName).collection("Users").doc(cred.user.uid).set({
+                    email: cred.user.email,
+                    name: this.full_name,
+                    organization: this.documentName,
+                })
               })
-            })
-            .catch(err => alert(err.message))
+              .catch(err => alert(err.message))
+        }
       }
     }
   }

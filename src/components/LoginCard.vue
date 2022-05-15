@@ -95,7 +95,8 @@ import 'firebase/compat/firestore';
     methods: {
       validate () {
         if ((this.email == '') || (this.password == '')) {
-          alert("One or more fields are blank\nPlease enter a valid email address and password");
+          alert("One or more required fields are blank\nPlease enter a valid email address and password");
+          this.alertFailure = true;
         } else {
           firebase
             .auth()
