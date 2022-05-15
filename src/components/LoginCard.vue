@@ -44,10 +44,18 @@
               <v-alert
                 outlined
                 type="success"
-                :value="alert"
+                :value="alertSuccess"
                 text
               >
                 Successfully logged in!
+              </v-alert>
+              <v-alert
+                outlined
+                type="error"
+                :value="alertFailure"
+                text
+              >
+                Login failed!
               </v-alert>
             </v-form>
           </v-card>
@@ -58,6 +66,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -66,7 +75,8 @@ import 'firebase/compat/firestore';
     name: 'LoginCard',
     data () {
       return {
-        alert: false,
+        alertSuccess: false,
+        alertFailure: false,
         valid: true,
         show: false,
         email: '',
@@ -84,11 +94,21 @@ import 'firebase/compat/firestore';
     },
     methods: {
       validate () {
-        firebase
+        if ((this.email == '') || (this.password == '')) {
+          alert("One or more fields are blank\nPlease enter a valid email address and password");
+        } else {
+          firebase
             .auth()
             .signInWithEmailAndPassword(this.email, this.password)
-            .then(this.alert = true)
-            .catch(err => alert(err.message))
+            .then((userCredential) => {
+              this.alertFailure = false;
+              this.alertSuccess = true;
+            })
+            .catch(err => {
+              alert("Login failed\nVerify that the user credentials were entered correctly");
+              this.alertFailure = true;
+            })
+        }
       },
     }
   }
