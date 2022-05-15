@@ -122,7 +122,7 @@ import 'firebase/compat/firestore';
               .then(cred => {
                 const user = firebase.auth().currentUser;
                 user.sendEmailVerification({
-                  url: "http://localhost:8080",
+                  url: "https://litecount-5fba6.web.app/",
                 });
                 this.alertFailure = false;
                 this.alertSuccess = true;
