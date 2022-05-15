@@ -113,3 +113,9 @@ import 'firebase/compat/firestore';
     }
   }
 </script>
+
+<style scoped>
+::v-deep .v-application--wrap {
+  min-height: fit-content;
+}
+</style>
