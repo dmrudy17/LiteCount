@@ -21,6 +21,8 @@
                 :rules="[rules.required]"
                 label="Full Name"
                 color="#0077B6"
+                clearable
+                prepend-inner-icon="mdi-account"
               ></v-text-field>
               <v-text-field
                 v-model="email"
