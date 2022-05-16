@@ -15,6 +15,7 @@
             >
               <v-text-field
                 v-model="full_name"
+                :rules="[rules.required]"
                 label="Full Name"
                 color="#0077B6"
               ></v-text-field>
@@ -105,8 +106,10 @@ import 'firebase/compat/firestore';
 
         // Initialize secondary app for special admin function
         var secondaryApp = firebase.initializeApp(config, "Secondary");
-
-        secondaryApp
+        if ((this.full_name == '') || (this.email == '') || (this.password == '')) {
+          alert("One or more required fields are blank\nPlease enter a valid name, email address, and password");
+        } else {
+          secondaryApp
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
@@ -121,6 +124,7 @@ import 'firebase/compat/firestore';
               return true;
             })
             .catch(err => alert(err.message))
+        }
       }
     },
     watch: {
