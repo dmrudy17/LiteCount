@@ -18,6 +18,7 @@
               ></v-text-field>
               <v-text-field
                 v-model="full_name"
+                :rules="[rules.required]"
                 label="Full Name"
                 color="#0077B6"
               ></v-text-field>
